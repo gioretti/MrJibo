@@ -1,0 +1,140 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "asset-pack": "core",
+        "children": [
+            "102fa2f4-f58a-48a3-93ad-742ba7e37f50",
+            "cd6aa645-a58d-431e-b334-f7131141dd55",
+            "13a86e34-f64d-4419-9e3d-d1605ff9fc6c",
+            "d0e3a440-54f3-46df-9244-d0ed287f0674"
+        ],
+        "decorators": [],
+        "options": {}
+    },
+    "meta": {
+        "version": 1
+    },
+    "102fa2f4-f58a-48a3-93ad-742ba7e37f50": {
+        "id": "102fa2f4-f58a-48a3-93ad-742ba7e37f50",
+        "class": "Subtree",
+        "name": "idle",
+        "options": {
+            "behaviorPath": "idle.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "decorators": [
+            "68b346f1-e4d1-444a-9ecb-88523b01f96f"
+        ]
+    },
+    "68b346f1-e4d1-444a-9ecb-88523b01f96f": {
+        "id": "68b346f1-e4d1-444a-9ecb-88523b01f96f",
+        "class": "SucceedOnEmbedded",
+        "options": {
+            "rule": "hey_jibo",
+            "onResult": [
+                "(listener) => {",
+                "\tlistener.on('hey-jibo', function(asrResult, speakerIds) {",
+                "\t\t\tconsole.log(\"idle succeed\");",
+                "\t});",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "cd6aa645-a58d-431e-b334-f7131141dd55": {
+        "id": "cd6aa645-a58d-431e-b334-f7131141dd55",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "  let jibo = require('jibo');",
+                "  let entity = jibo.lps.getClosestVisualEntity();",
+                "  ",
+                "  let position = {x:.5, y:.1, z:.4};",
+                "",
+                "  if (entity) {",
+                "          position = {x: entity.position.x, y: entity.position.y, z: entity.position.z};",
+                "  }",
+                "",
+                "  return position;",
+                "}"
+            ],
+            "isContinuous": false,
+            "config": [
+                "(lookAt) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "d0e3a440-54f3-46df-9244-d0ed287f0674": {
+        "id": "d0e3a440-54f3-46df-9244-d0ed287f0674",
+        "class": "TextToSpeech",
+        "name": "",
+        "options": {
+            "words": "what can I do for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "13a86e34-f64d-4419-9e3d-d1605ff9fc6c": {
+        "id": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "ad957b25-218b-4e7a-9985-1e8254212a3a",
+            "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf"
+        ]
+    },
+    "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf": {
+        "id": "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf",
+        "class": "TextToSpeech",
+        "name": "",
+        "options": {
+            "words": "Hello",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c"
+    },
+    "ad957b25-218b-4e7a-9985-1e8254212a3a": {
+        "id": "ad957b25-218b-4e7a-9985-1e8254212a3a",
+        "class": "PlayAnimation",
+        "name": "",
+        "options": {
+            "animPath": "hello.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c"
+    }
+}
