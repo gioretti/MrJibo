@@ -1,0 +1,29 @@
+TopRule =
+    $*
+    (
+        $order
+            {action = 'takeOrder'}
+            {product = order._product}
+            {quantity = order._quantity}
+        |
+        $goodbye
+            {action='endDialogue'}
+    )
+    $*
+;
+
+order = $*
+        $quantity {_quantity = quantity._number}
+        $product {_product = product._product}
+        ?(please)
+        ;
+
+quantity =
+            (three) { _number = '3'} |
+            (two | (a couple) ) { _number = '2'} |
+            (a | one) { _number = '1'};
+
+
+product @= (+$w){_product = _parsed};
+
+goodbye = (good bye) | goodbye | bye;

@@ -2,22 +2,37 @@
     "1": {
         "id": 1,
         "class": "Sequence",
-        "name": "",
+        "name": "Infinite loop",
         "asset-pack": "core",
         "children": [
-            "102fa2f4-f58a-48a3-93ad-742ba7e37f50",
-            "cd6aa645-a58d-431e-b334-f7131141dd55",
-            "13a86e34-f64d-4419-9e3d-d1605ff9fc6c",
-            "d0e3a440-54f3-46df-9244-d0ed287f0674"
+            "94c108e0-aada-455f-9486-b79a4e7d7a74",
+            "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
+            "13e49aee-bd12-474c-8002-36f211cd801b"
         ],
-        "decorators": [],
+        "decorators": [
+            "7b83db44-861e-4649-9c43-60ade5a39447"
+        ],
         "options": {}
     },
     "meta": {
         "version": 1
     },
-    "102fa2f4-f58a-48a3-93ad-742ba7e37f50": {
-        "id": "102fa2f4-f58a-48a3-93ad-742ba7e37f50",
+    "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d": {
+        "id": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "9b35ee30-a4f2-4488-9080-f5cc94680676",
+            "5d7cbccc-b793-4054-bd62-3267120870ee"
+        ]
+    },
+    "3d4808c6-1033-402f-82fe-828c2d957233": {
+        "id": "3d4808c6-1033-402f-82fe-828c2d957233",
         "class": "Subtree",
         "name": "idle",
         "options": {
@@ -33,43 +48,267 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1,
+        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676",
         "decorators": [
-            "68b346f1-e4d1-444a-9ecb-88523b01f96f"
+            "a4171007-4b5a-412e-8903-b296c10b2e7d"
         ]
     },
-    "68b346f1-e4d1-444a-9ecb-88523b01f96f": {
-        "id": "68b346f1-e4d1-444a-9ecb-88523b01f96f",
-        "class": "SucceedOnEmbedded",
+    "5d7cbccc-b793-4054-bd62-3267120870ee": {
+        "id": "5d7cbccc-b793-4054-bd62-3267120870ee",
+        "class": "Listen",
+        "name": "listen the costumer",
         "options": {
-            "rule": "hey_jibo",
+            "getOptions": [
+                "() => {",
+                "    ",
+                "    let listenForHeyJibo = !notepad.isBusy;",
+                "  ",
+                "    let options = {",
+                "        heyJibo: listenForHeyJibo,",
+                "        detectEnd: false,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "dialogue.rule",
             "onResult": [
                 "(listener) => {",
-                "\tlistener.on('hey-jibo', function(asrResult, speakerIds) {",
-                "\t\t\tconsole.log(\"idle succeed\");",
-                "\t});",
+                "",
+                "    listener.on('hey-jibo', (asrResult, speaker) => {",
+                "        notepad.isBusy = true;",
+                "        emitter.emit(\"engageJibo\");",
+                "    });",
+                "",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        ",
+                "        notepad.action = asrResult.NLParse.action;",
+                "        notepad.results = asrResult.NLParse;",
+                "        ",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d"
+    },
+    "a4171007-4b5a-412e-8903-b296c10b2e7d": {
+        "id": "a4171007-4b5a-412e-8903-b296c10b2e7d",
+        "class": "SucceedOnEvent",
+        "name": "",
+        "options": {
+            "eventName": "engageJibo",
+            "onEvent": [
+                "() => {",
                 "}"
             ]
         },
         "asset-pack": "core"
     },
-    "cd6aa645-a58d-431e-b334-f7131141dd55": {
-        "id": "cd6aa645-a58d-431e-b334-f7131141dd55",
+    "13e49aee-bd12-474c-8002-36f211cd801b": {
+        "id": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6",
+            "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+        ],
+        "decorators": []
+    },
+    "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a": {
+        "id": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a",
+        "class": "Sequence",
+        "name": "endDialogue",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "decorators": [
+            "dba041f8-c66e-4f31-83c7-bdfdae20b6e5"
+        ],
+        "children": [
+            "29ccec1e-1f04-4bfa-9e91-442cc523723e",
+            "4391c54e-d1f8-43d4-9a69-ea068ccf147d"
+        ]
+    },
+    "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6": {
+        "id": "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6",
+        "class": "Sequence",
+        "name": "takeOrder",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "decorators": [
+            "dc8bdd3d-2546-4c5a-9949-fd6591b7b635"
+        ],
+        "children": [
+            "461392ab-7328-416e-9435-f7fe772f2cc9",
+            "de402283-f4c6-436a-bcc7-5d940d81d8f5",
+            "d4293f0d-0ebf-42f8-bcdf-8f9cda1932fb"
+        ]
+    },
+    "dc8bdd3d-2546-4c5a-9949-fd6591b7b635": {
+        "id": "dc8bdd3d-2546-4c5a-9949-fd6591b7b635",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  let action = notepad.action;",
+                "  if ( action != undefined & action==\"takeOrder\" ) {",
+                "      return true;",
+                "  } else {",
+                "      return false;",
+                "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "dba041f8-c66e-4f31-83c7-bdfdae20b6e5": {
+        "id": "dba041f8-c66e-4f31-83c7-bdfdae20b6e5",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  let action = notepad.action;",
+                "  if ( action != undefined & action==\"endDialogue\" ) {",
+                "      return true;",
+                "  } else {",
+                "      return false;",
+                "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "29ccec1e-1f04-4bfa-9e91-442cc523723e": {
+        "id": "29ccec1e-1f04-4bfa-9e91-442cc523723e",
+        "class": "TextToSpeech",
+        "name": "say bye",
+        "options": {
+            "words": "Bye!",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+    },
+    "461392ab-7328-416e-9435-f7fe772f2cc9": {
+        "id": "461392ab-7328-416e-9435-f7fe772f2cc9",
+        "class": "TextToSpeech",
+        "name": "",
+        "options": {
+            "words": "I'm elaborating the order...",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6"
+    },
+    "94c108e0-aada-455f-9486-b79a4e7d7a74": {
+        "id": "94c108e0-aada-455f-9486-b79a4e7d7a74",
+        "class": "ExecuteScript",
+        "name": "Init Jibo",
+        "options": {
+            "exec": [
+                "() => {",
+                "  ",
+                "  console.log(\"new loop... \");",
+                "  ",
+                "  if( !notepad.isInitialized ) {",
+                "      console.log(\"Initializing Jibo...\");",
+                "      notepad.action = \"\";",
+                "      notepad.results = {};",
+                "      notepad.isBusy = false;",
+                "      notepad.isInitialized = true;",
+                "  }",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "4391c54e-d1f8-43d4-9a69-ea068ccf147d": {
+        "id": "4391c54e-d1f8-43d4-9a69-ea068ccf147d",
+        "class": "ExecuteScript",
+        "name": "Disengage Jibo",
+        "options": {
+            "exec": [
+                "() => {",
+                "  ",
+                "  notepad.isBusy = false;",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+    },
+    "7b83db44-861e-4649-9c43-60ade5a39447": {
+        "id": "7b83db44-861e-4649-9c43-60ade5a39447",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "9b35ee30-a4f2-4488-9080-f5cc94680676": {
+        "id": "9b35ee30-a4f2-4488-9080-f5cc94680676",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
+        "children": [
+            "3d4808c6-1033-402f-82fe-828c2d957233",
+            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0"
+        ],
+        "decorators": [
+            "eea91f5d-c7ba-4fc3-97cb-8168f1147995"
+        ]
+    },
+    "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0": {
+        "id": "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
         "class": "LookAt",
         "name": "",
         "options": {
             "getTarget": [
                 "() => {",
-                "  let jibo = require('jibo');",
-                "  let entity = jibo.lps.getClosestVisualEntity();",
-                "  ",
-                "  let position = {x:.5, y:.1, z:.4};",
+                "\tlet jibo = require('jibo');\t",
+                "\tlet entity = jibo.lps.getClosestVisualEntity();",
+                "\t",
+                "\t// x is meters forward, y is meters left, and z is meters up",
+                "  let nDefaultPosition = {x: 0.1, y: 0, z: 0.285}; // emulates initial \"center\"",
+                "  let position = nDefaultPosition;",
                 "",
-                "  if (entity) {",
-                "          position = {x: entity.position.x, y: entity.position.y, z: entity.position.z};",
-                "  }",
-                "",
-                "  return position;",
+                "\tif (entity && entity.parts.length > 0) {",
+                "\t\tlet raysData = entity.parts[0].value.rays;",
+                "\t\tif (raysData !== undefined && raysData.length > 0) {",
+                "\t\t\tlet origin = entity.parts[0].value.rays[0].origin;",
+                "\t\t\tlet dir = entity.parts[0].value.rays[0].dir;",
+                "\t\t\tposition\t= {x: dir.x + origin.x, y:dir.y + origin.y, z: dir.z + origin.z};",
+                "\t\t}",
+                "\t}",
+                "\treturn position;",
                 "}"
             ],
             "isContinuous": false,
@@ -79,62 +318,58 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676"
     },
-    "d0e3a440-54f3-46df-9244-d0ed287f0674": {
-        "id": "d0e3a440-54f3-46df-9244-d0ed287f0674",
-        "class": "TextToSpeech",
+    "de402283-f4c6-436a-bcc7-5d940d81d8f5": {
+        "id": "de402283-f4c6-436a-bcc7-5d940d81d8f5",
+        "class": "TextToSpeechJs",
         "name": "",
         "options": {
-            "words": "what can I do for you?",
+            "getWords": [
+                "(callback) => {",
+                "    let product = notepad.results.product;",
+                "    let quantity = notepad.results.quantity;",
+                "    callback( quantity + ' ' + product + ', right?' );",
+                "}"
+            ],
             "onWord": [
                 "(word) => {",
                 "}"
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6"
     },
-    "13a86e34-f64d-4419-9e3d-d1605ff9fc6c": {
-        "id": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c",
-        "class": "Parallel",
+    "d4293f0d-0ebf-42f8-bcdf-8f9cda1932fb": {
+        "id": "d4293f0d-0ebf-42f8-bcdf-8f9cda1932fb",
+        "class": "ExecuteScript",
         "name": "",
         "options": {
-            "succeedOnOne": false
-        },
-        "asset-pack": "core",
-        "parent": 1,
-        "children": [
-            "ad957b25-218b-4e7a-9985-1e8254212a3a",
-            "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf"
-        ]
-    },
-    "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf": {
-        "id": "ecdc15a5-011b-4d51-84a5-8a3e1cf27daf",
-        "class": "TextToSpeech",
-        "name": "",
-        "options": {
-            "words": "Hello",
-            "onWord": [
-                "(word) => {",
+            "exec": [
+                "() => {",
+                "    notepad.isBusy = true;",
                 "}"
             ]
         },
         "asset-pack": "core",
-        "parent": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c"
+        "parent": "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6"
     },
-    "ad957b25-218b-4e7a-9985-1e8254212a3a": {
-        "id": "ad957b25-218b-4e7a-9985-1e8254212a3a",
-        "class": "PlayAnimation",
+    "eea91f5d-c7ba-4fc3-97cb-8168f1147995": {
+        "id": "eea91f5d-c7ba-4fc3-97cb-8168f1147995",
+        "class": "StartOnCondition",
         "name": "",
         "options": {
-            "animPath": "hello.keys",
-            "config": [
-                "(animation) => {",
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "  // start idle if not busy",
+                "  return !notepad.isBusy;",
                 "}"
             ]
         },
-        "asset-pack": "core",
-        "parent": "13a86e34-f64d-4419-9e3d-d1605ff9fc6c"
+        "asset-pack": "core"
     }
 }
