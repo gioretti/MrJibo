@@ -48,8 +48,9 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676",
+        "parent": "abeceaf8-572e-48e7-ad18-07609d16fea6",
         "decorators": [
+            "93e844e4-8473-4c78-83c0-44a0a353ee62",
             "a4171007-4b5a-412e-8903-b296c10b2e7d"
         ]
     },
@@ -65,7 +66,7 @@
                 "  ",
                 "    let options = {",
                 "        heyJibo: listenForHeyJibo,",
-                "        detectEnd: false,",
+                "        detectEnd: true,",
                 "        incremental: false,",
                 "        authenticateSpeaker: ''",
                 "    }",
@@ -75,17 +76,23 @@
             "rule": "dialogue.rule",
             "onResult": [
                 "(listener) => {",
+                "  ",
+                "    console.log(\"I'm listening...\");",
                 "",
                 "    listener.on('hey-jibo', (asrResult, speaker) => {",
+                "        console.log(\"someone called me?\");",
                 "        notepad.isBusy = true;",
                 "        emitter.emit(\"engageJibo\");",
                 "    });",
                 "",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
                 "        ",
+                "        console.log(\"listen on the cloud...\");",
                 "        notepad.action = asrResult.NLParse.action;",
                 "        notepad.results = asrResult.NLParse;",
-                "        ",
+                "        console.log(\"What I've understood: \" ",
+                "                    + notepad.action);",
+                "        if(notepad.isBusy){ emitter.emit('engageJibo'); }",
                 "    });",
                 "}"
             ]
@@ -101,6 +108,7 @@
             "eventName": "engageJibo",
             "onEvent": [
                 "() => {",
+                "  console.log(\"Stop Idle, someone needs me!\");",
                 "}"
             ]
         },
@@ -158,7 +166,9 @@
             "conditional": [
                 "() => {",
                 "  let action = notepad.action;",
-                "  if ( action != undefined & action==\"takeOrder\" ) {",
+                "  console.log(action);",
+                "  if ( action !== undefined && action == \"takeOrder\" ) {",
+                "      console.log(\"I take a Order\");",
                 "      return true;",
                 "  } else {",
                 "      return false;",
@@ -176,7 +186,9 @@
             "conditional": [
                 "() => {",
                 "  let action = notepad.action;",
-                "  if ( action != undefined & action==\"endDialogue\" ) {",
+                "  console.log(action);",
+                "  if ( action !== undefined && action == \"endDialogue\" ) {",
+                "      console.log(\"I end a dialogue\");",
                 "      return true;",
                 "  } else {",
                 "      return false;",
@@ -245,9 +257,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "  ",
                 "  notepad.isBusy = false;",
-                "  ",
                 "}"
             ]
         },
@@ -279,12 +289,10 @@
         "asset-pack": "core",
         "parent": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
         "children": [
-            "3d4808c6-1033-402f-82fe-828c2d957233",
+            "abeceaf8-572e-48e7-ad18-07609d16fea6",
             "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0"
         ],
-        "decorators": [
-            "eea91f5d-c7ba-4fc3-97cb-8168f1147995"
-        ]
+        "decorators": []
     },
     "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0": {
         "id": "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
@@ -354,19 +362,26 @@
         "asset-pack": "core",
         "parent": "5fe8ff0f-e9b0-460f-9af8-ef53ef44abd6"
     },
-    "eea91f5d-c7ba-4fc3-97cb-8168f1147995": {
-        "id": "eea91f5d-c7ba-4fc3-97cb-8168f1147995",
-        "class": "StartOnCondition",
+    "abeceaf8-572e-48e7-ad18-07609d16fea6": {
+        "id": "abeceaf8-572e-48e7-ad18-07609d16fea6",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676",
+        "children": [
+            "3d4808c6-1033-402f-82fe-828c2d957233"
+        ],
+        "decorators": []
+    },
+    "93e844e4-8473-4c78-83c0-44a0a353ee62": {
+        "id": "93e844e4-8473-4c78-83c0-44a0a353ee62",
+        "class": "Case",
         "name": "",
         "options": {
-            "init": [
-                "() => {",
-                "}"
-            ],
             "conditional": [
                 "() => {",
-                "  // start idle if not busy",
-                "  return !notepad.isBusy;",
+                "  return notepad.isBusy;",
                 "}"
             ]
         },
