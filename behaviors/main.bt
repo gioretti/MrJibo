@@ -381,7 +381,7 @@
         "options": {
             "conditional": [
                 "() => {",
-                "  return notepad.isBusy;",
+                "  return !notepad.isBusy;",
                 "}"
             ]
         },
