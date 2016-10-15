@@ -1,0 +1,206 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "18f58170-ac5b-4170-a677-994df20a5164",
+            "93cdadd8-0d5d-4075-9dfb-070d212769aa",
+            "49feba96-0f33-4def-9bc7-d24887288145",
+            "96f108e2-a489-423b-9460-d99d2852757a"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "18f58170-ac5b-4170-a677-994df20a5164": {
+        "id": "18f58170-ac5b-4170-a677-994df20a5164",
+        "class": "TextToSpeech",
+        "name": "(dummy) elaborate order",
+        "options": {
+            "words": "I'm elaborating the order...",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "93cdadd8-0d5d-4075-9dfb-070d212769aa": {
+        "id": "93cdadd8-0d5d-4075-9dfb-070d212769aa",
+        "class": "TextToSpeechJs",
+        "name": "ask confirmation",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    console.log(notepad);",
+                "    callback( notepad.quantity + ' ' + notepad.product + ', right?' );",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "49feba96-0f33-4def-9bc7-d24887288145": {
+        "id": "49feba96-0f33-4def-9bc7-d24887288145",
+        "class": "ListenJs",
+        "name": "",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "getRule": [
+                "(callback) => {",
+                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl};\");",
+                "}"
+            ],
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        notepad.confirmed = asrResult.NLParse.confirmed;",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "96f108e2-a489-423b-9460-d99d2852757a": {
+        "id": "96f108e2-a489-423b-9460-d99d2852757a",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "0f04fb38-8527-452d-9549-13973872b25d",
+            "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+        ]
+    },
+    "0f04fb38-8527-452d-9549-13973872b25d": {
+        "id": "0f04fb38-8527-452d-9549-13973872b25d",
+        "class": "Sequence",
+        "name": "order confirmed",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "96f108e2-a489-423b-9460-d99d2852757a",
+        "children": [
+            "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
+            "a82ef6d4-2d9e-4c73-8376-628d607de46c"
+        ],
+        "decorators": [
+            "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa"
+        ]
+    },
+    "2634f28b-bbd4-4fa7-9ab8-07d28031318c": {
+        "id": "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
+        "class": "TextToSpeech",
+        "name": "(dummy) add item to chart",
+        "options": {
+            "words": "I've the item is on your chart.",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
+    },
+    "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa": {
+        "id": "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return notepad.confirmed == 'yes';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60": {
+        "id": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60",
+        "class": "Sequence",
+        "name": "order invalidated",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "96f108e2-a489-423b-9460-d99d2852757a",
+        "children": [
+            "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4",
+            "c8bad9bb-937b-42b1-857f-5478a0736dbf"
+        ],
+        "decorators": [
+            "30670bb3-0bbd-4a49-a697-8010ce3b59d6"
+        ]
+    },
+    "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4": {
+        "id": "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4",
+        "class": "TextToSpeech",
+        "name": "apologize",
+        "options": {
+            "words": "I am sorry if I did an error.",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+    },
+    "30670bb3-0bbd-4a49-a697-8010ce3b59d6": {
+        "id": "30670bb3-0bbd-4a49-a697-8010ce3b59d6",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return notepad.confirmed == 'no';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "a82ef6d4-2d9e-4c73-8376-628d607de46c": {
+        "id": "a82ef6d4-2d9e-4c73-8376-628d607de46c",
+        "class": "TextToSpeech",
+        "name": "something else?",
+        "options": {
+            "words": "Can I do something else for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
+    },
+    "c8bad9bb-937b-42b1-857f-5478a0736dbf": {
+        "id": "c8bad9bb-937b-42b1-857f-5478a0736dbf",
+        "class": "TextToSpeech",
+        "name": "something else?",
+        "options": {
+            "words": "Can I do something else for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+    }
+}
