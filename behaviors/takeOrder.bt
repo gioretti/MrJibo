@@ -5,38 +5,31 @@
         "name": "",
         "options": {},
         "children": [
-            "18f58170-ac5b-4170-a677-994df20a5164",
+            "9fd63f95-ef66-4c00-929c-4719b40b78fd",
             "93cdadd8-0d5d-4075-9dfb-070d212769aa",
-            "49feba96-0f33-4def-9bc7-d24887288145",
-            "96f108e2-a489-423b-9460-d99d2852757a"
+            "03faf3fd-a12e-4653-ba52-5ee7f36b36fc"
         ]
     },
     "meta": {
         "version": 1
     },
-    "18f58170-ac5b-4170-a677-994df20a5164": {
-        "id": "18f58170-ac5b-4170-a677-994df20a5164",
-        "class": "TextToSpeech",
-        "name": "(dummy) elaborate order",
-        "options": {
-            "words": "I'm elaborating the order...",
-            "onWord": [
-                "(word) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": 1
-    },
     "93cdadd8-0d5d-4075-9dfb-070d212769aa": {
         "id": "93cdadd8-0d5d-4075-9dfb-070d212769aa",
         "class": "TextToSpeechJs",
-        "name": "ask confirmation",
+        "name": "show result & ask confirmation",
         "options": {
             "getWords": [
                 "(callback) => {",
-                "    console.log(notepad);",
-                "    callback( notepad.quantity + ' ' + notepad.product + ', right?' );",
+                "    ",
+                "    let speech;",
+                "    if( notepad.results.length > 0 ) {",
+                "        let productName = notepad.results[0].name;",
+                "        speech = \"I've found \" + productName + \" is it good? \";",
+                "    } else {",
+                "        speech = \"I'm sorry, I don't have this product\";",
+                "    }",
+                "    ",
+                "    callback(speech);",
                 "}"
             ],
             "onWord": [
@@ -50,7 +43,7 @@
     "49feba96-0f33-4def-9bc7-d24887288145": {
         "id": "49feba96-0f33-4def-9bc7-d24887288145",
         "class": "ListenJs",
-        "name": "",
+        "name": "result is good or not?",
         "options": {
             "getOptions": [
                 "() => {",
@@ -77,7 +70,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83"
     },
     "96f108e2-a489-423b-9460-d99d2852757a": {
         "id": "96f108e2-a489-423b-9460-d99d2852757a",
@@ -85,7 +78,7 @@
         "name": "",
         "options": {},
         "asset-pack": "core",
-        "parent": 1,
+        "parent": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83",
         "children": [
             "0f04fb38-8527-452d-9549-13973872b25d",
             "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
@@ -202,5 +195,63 @@
         },
         "asset-pack": "core",
         "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+    },
+    "9fd63f95-ef66-4c00-929c-4719b40b78fd": {
+        "id": "9fd63f95-ef66-4c00-929c-4719b40b78fd",
+        "class": "OrderEnquiring",
+        "name": "",
+        "options": {
+            "databaseURL": "mongodb://localhost:27017/jiboshop",
+            "getKeywords": [
+                "() => { ",
+                "    let keywords = notepad.product; ",
+                "    return keywords; ",
+                "}"
+            ],
+            "onResult": [
+                "(results) => { notepad.results = results; }"
+            ]
+        },
+        "asset-pack": "project",
+        "parent": 1
+    },
+    "03faf3fd-a12e-4653-ba52-5ee7f36b36fc": {
+        "id": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "7555e076-a5da-4e65-b1b9-cb9e9fc06b83"
+        ]
+    },
+    "7555e076-a5da-4e65-b1b9-cb9e9fc06b83": {
+        "id": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83",
+        "class": "Sequence",
+        "name": "go on if there are results",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
+        "children": [
+            "49feba96-0f33-4def-9bc7-d24887288145",
+            "96f108e2-a489-423b-9460-d99d2852757a"
+        ],
+        "decorators": [
+            "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe"
+        ]
+    },
+    "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe": {
+        "id": "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return ( notepad.results.length > 0 )",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
     }
 }

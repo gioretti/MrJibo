@@ -7,7 +7,10 @@ jibo.init('face', function(err) {
     if (err) {
         return console.error(err);
     }
+    require('./behaviors/order-enquiring');
+
     // Load and create the behavior tree
+    //let root = jibo.bt.create('../behaviors/main');
     let root = jibo.bt.create('../behaviors/main');
     root.start();
 

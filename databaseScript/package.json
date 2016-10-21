@@ -1,15 +1,14 @@
 {
-  "name": "mrjibo",
-  "version": "0.1.0",
+  "name": "database",
+  "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "behaviorify": "^1.0.0",
-    "jibo": "^3.0.0",
     "mongodb": "^2.2.10"
-  },
-  "license": "UNLICENSED"
+  }
 }
