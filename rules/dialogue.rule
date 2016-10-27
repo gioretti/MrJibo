@@ -13,16 +13,22 @@ TopRule =
 ;
 
 order = $*
-        $quantity {_quantity = quantity._number}
+        $quantity {_quantity = quantity._value}
         $product {_product = product._product}
         ?(please)
         ;
 
-quantity =
-            (three) { _number = '3'} |
-            (two | (a couple) ) { _number = '2'} |
-            (a | one) { _number = '1'};
+quantity =  (a couple) { _value = 'two' }
+                |
+            (a) { _value = 'one' }
+                |
+            $number {_value = number._value};
 
+number @= (zero | one | two | three | four | five | six | seven | eight | nine |
+          then | eleven | twelve  |  thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen |
+          twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety |
+          hundred  | thousand | million | billion | trillion | quadrillion | quintillion | sextillion | septillion | octillion | nonillion | decillion)(+$w)
+          {_value = _parsed};
 
 product @= (+$w){_product = _parsed};
 

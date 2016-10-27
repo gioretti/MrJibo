@@ -4,7 +4,7 @@ let jibo = require('jibo');
 let Status = jibo.bt.Status;
 let Behavior = jibo.bt.Behavior;
 let BehaviorTree = jibo.bt.BehaviorTree;
-let ProductManager = require('../ProductManager');
+let ProductManager = require('../utilities/ProductManager');
 
 class OrderEnquiring extends Behavior {
 

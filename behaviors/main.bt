@@ -312,9 +312,14 @@
             "getNotepad": [
                 "() => {",
                 "",
+                "    let Text2Number = require('./../src/utilities/Text2Number');",
+                "    let quantityAsText = notepad.results.quantity;",
+                "    ",
                 "    let order = {};",
                 "    order.product = notepad.results.product;",
-                "    order.quantity = notepad.results.quantity;",
+                "    order.quantity = Text2Number(quantityAsText);",
+                "    ",
+                "    console.log(order);",
                 "    ",
                 "    return order;",
                 "}"
