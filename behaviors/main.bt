@@ -6,7 +6,9 @@
         "asset-pack": "core",
         "children": [
             "94c108e0-aada-455f-9486-b79a4e7d7a74",
-            "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
+            "0534b8a9-1ec4-4edc-b455-79cee77cc543",
+            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
+            "5d7cbccc-b793-4054-bd62-3267120870ee",
             "13e49aee-bd12-474c-8002-36f211cd801b"
         ],
         "decorators": [
@@ -16,20 +18,6 @@
     },
     "meta": {
         "version": 1
-    },
-    "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d": {
-        "id": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
-        "class": "Parallel",
-        "name": "",
-        "options": {
-            "succeedOnOne": false
-        },
-        "asset-pack": "core",
-        "parent": 1,
-        "children": [
-            "9b35ee30-a4f2-4488-9080-f5cc94680676",
-            "5d7cbccc-b793-4054-bd62-3267120870ee"
-        ]
     },
     "3d4808c6-1033-402f-82fe-828c2d957233": {
         "id": "3d4808c6-1033-402f-82fe-828c2d957233",
@@ -48,25 +36,22 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "abeceaf8-572e-48e7-ad18-07609d16fea6",
+        "parent": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
         "decorators": [
-            "93e844e4-8473-4c78-83c0-44a0a353ee62",
-            "a4171007-4b5a-412e-8903-b296c10b2e7d"
+            "acdedc87-6a25-4cea-8551-ae36c15e4200",
+            "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6"
         ]
     },
     "5d7cbccc-b793-4054-bd62-3267120870ee": {
         "id": "5d7cbccc-b793-4054-bd62-3267120870ee",
         "class": "Listen",
-        "name": "listen the costumer",
+        "name": "Listen the costumer",
         "options": {
             "getOptions": [
                 "() => {",
-                "    ",
-                "    let listenForHeyJibo = !notepad.isBusy;",
-                "  ",
                 "    let options = {",
-                "        heyJibo: listenForHeyJibo,",
-                "        detectEnd: true,",
+                "        heyJibo: false,",
+                "        detectEnd: false,",
                 "        incremental: false,",
                 "        authenticateSpeaker: ''",
                 "    }",
@@ -77,13 +62,13 @@
             "onResult": [
                 "(listener) => {",
                 "  ",
-                "    console.log(\"I'm listening...\");",
-                "",
-                "    listener.on('hey-jibo', (asrResult, speaker) => {",
-                "        console.log(\"someone called me?\");",
-                "        notepad.isBusy = true;",
-                "        emitter.emit(\"engageJibo\");",
-                "    });",
+                "    // console.log(\"I'm listening...\");",
+                "    // ",
+                "    // listener.on('hey-jibo', (asrResult, speaker) => {",
+                "    //     console.log(\"someone called me?\");",
+                "    //     notepad.isBusy = true;",
+                "    //     emitter.emit(\"engageJibo\");",
+                "    // });",
                 "",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
                 "        ",
@@ -98,21 +83,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d"
-    },
-    "a4171007-4b5a-412e-8903-b296c10b2e7d": {
-        "id": "a4171007-4b5a-412e-8903-b296c10b2e7d",
-        "class": "SucceedOnEvent",
-        "name": "",
-        "options": {
-            "eventName": "engageJibo",
-            "onEvent": [
-                "() => {",
-                "  console.log(\"Stop Idle, someone needs me!\");",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
+        "parent": 1
     },
     "13e49aee-bd12-474c-8002-36f211cd801b": {
         "id": "13e49aee-bd12-474c-8002-36f211cd801b",
@@ -190,7 +161,7 @@
                 "      console.log(\"Initializing Jibo...\");",
                 "      notepad.action = \"\";",
                 "      notepad.results = {};",
-                "      notepad.isBusy = false;",
+                "      notepad.isEngaged = false;",
                 "      notepad.isInitialized = true;",
                 "  }",
                 "  ",
@@ -207,7 +178,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "  notepad.isBusy = false;",
+                "  notepad.isEngaged = false;",
                 "}"
             ]
         },
@@ -230,19 +201,6 @@
             ]
         },
         "asset-pack": "core"
-    },
-    "9b35ee30-a4f2-4488-9080-f5cc94680676": {
-        "id": "9b35ee30-a4f2-4488-9080-f5cc94680676",
-        "class": "Sequence",
-        "name": "",
-        "options": {},
-        "asset-pack": "core",
-        "parent": "8430a5b2-4cd8-46bf-9d9d-5d03fbe36f2d",
-        "children": [
-            "abeceaf8-572e-48e7-ad18-07609d16fea6",
-            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0"
-        ],
-        "decorators": []
     },
     "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0": {
         "id": "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
@@ -276,32 +234,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676"
-    },
-    "abeceaf8-572e-48e7-ad18-07609d16fea6": {
-        "id": "abeceaf8-572e-48e7-ad18-07609d16fea6",
-        "class": "Switch",
-        "name": "",
-        "options": {},
-        "asset-pack": "core",
-        "parent": "9b35ee30-a4f2-4488-9080-f5cc94680676",
-        "children": [
-            "3d4808c6-1033-402f-82fe-828c2d957233"
-        ],
-        "decorators": []
-    },
-    "93e844e4-8473-4c78-83c0-44a0a353ee62": {
-        "id": "93e844e4-8473-4c78-83c0-44a0a353ee62",
-        "class": "Case",
-        "name": "",
-        "options": {
-            "conditional": [
-                "() => {",
-                "  return !notepad.isBusy;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
+        "parent": 1
     },
     "f7dad3fc-ae51-499c-a339-467928d26c83": {
         "id": "f7dad3fc-ae51-499c-a339-467928d26c83",
@@ -350,6 +283,46 @@
                 "  } else {",
                 "      return false;",
                 "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6": {
+        "id": "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6",
+        "class": "SucceedOnEmbedded",
+        "name": "",
+        "options": {
+            "rule": "hey_jibo",
+            "onResult": [
+                "(listener) => {",
+                "\tlistener.on('hey-jibo', function(asrResult, speakerIds) {",
+                "        notepad.isEngaged = true;",
+                "\t});",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "0534b8a9-1ec4-4edc-b455-79cee77cc543": {
+        "id": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "3d4808c6-1033-402f-82fe-828c2d957233"
+        ]
+    },
+    "acdedc87-6a25-4cea-8551-ae36c15e4200": {
+        "id": "acdedc87-6a25-4cea-8551-ae36c15e4200",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return !notepad.isEngaged;",
                 "}"
             ]
         },
