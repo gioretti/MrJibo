@@ -1,7 +1,7 @@
 {
     "version": "0.6.0",
     "framerate": 30,
-    "duration": 60,
+    "duration": 80,
     "scale": 1,
     "layers": [
         {
@@ -36,6 +36,19 @@
                         }
                     },
                     "time": 40
+                },
+                {
+                    "value": {
+                        "Head": 0,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 79
                 }
             ]
         },
@@ -71,6 +84,19 @@
                         }
                     },
                     "time": 40
+                },
+                {
+                    "value": {
+                        "Head": 1.4999999999998772,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 79
                 }
             ]
         },
@@ -190,70 +216,6 @@
                         }
                     },
                     "time": 40
-                }
-            ]
-        },
-        {
-            "id": "f13045d62ffb4f398819d62f9c7c28e9",
-            "name": "Eye #1",
-            "type": "Eye",
-            "visible": true,
-            "locked": false,
-            "keyframes": [
-                {
-                    "value": {
-                        "Rotate": 0,
-                        "Scale": {
-                            "x": 1,
-                            "y": 1
-                        },
-                        "Translate": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "Tween": {
-                            "display": "sine in out",
-                            "label": "Sine Ease In Out",
-                            "value": "sineInOut"
-                        },
-                        "Vertex 1": {
-                            "x": -300,
-                            "y": -300
-                        },
-                        "Vertex 2": {
-                            "x": 0,
-                            "y": -300
-                        },
-                        "Vertex 3": {
-                            "x": 300,
-                            "y": -300
-                        },
-                        "Vertex 4": {
-                            "x": -300,
-                            "y": 0
-                        },
-                        "Vertex 5": {
-                            "x": 0,
-                            "y": 0
-                        },
-                        "Vertex 6": {
-                            "x": 300,
-                            "y": 0
-                        },
-                        "Vertex 7": {
-                            "x": -300,
-                            "y": 300
-                        },
-                        "Vertex 8": {
-                            "x": 0,
-                            "y": 300
-                        },
-                        "Vertex 9": {
-                            "x": 300,
-                            "y": 300
-                        }
-                    },
-                    "time": 0
                 },
                 {
                     "value": {
@@ -263,8 +225,8 @@
                             "y": 1
                         },
                         "Translate": {
-                            "x": 374.06198241901006,
-                            "y": 235.3198540067271
+                            "x": 0,
+                            "y": 0
                         },
                         "Tween": {
                             "display": "sine in out",
@@ -308,7 +270,7 @@
                             "y": 300
                         }
                     },
-                    "time": 40
+                    "time": 79
                 }
             ]
         }
