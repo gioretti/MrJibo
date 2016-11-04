@@ -1,0 +1,52 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "3401fdb4-c149-4aac-ae57-7e15b9d39fc0"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "3401fdb4-c149-4aac-ae57-7e15b9d39fc0": {
+        "id": "3401fdb4-c149-4aac-ae57-7e15b9d39fc0",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "7a3a85f0-c0e3-4a62-8ce1-8c1470bb7d80",
+            "84384d97-27fb-4231-8168-a2758ffb4fa2"
+        ]
+    },
+    "84384d97-27fb-4231-8168-a2758ffb4fa2": {
+        "id": "84384d97-27fb-4231-8168-a2758ffb4fa2",
+        "class": "PlayAnimation",
+        "name": "",
+        "options": {
+            "animPath": "excited.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "3401fdb4-c149-4aac-ae57-7e15b9d39fc0"
+    },
+    "7a3a85f0-c0e3-4a62-8ce1-8c1470bb7d80": {
+        "id": "7a3a85f0-c0e3-4a62-8ce1-8c1470bb7d80",
+        "class": "PlayAudio",
+        "name": "",
+        "options": {
+            "audioPath": "FX_Holyhappiness.mp3"
+        },
+        "asset-pack": "core",
+        "parent": "3401fdb4-c149-4aac-ae57-7e15b9d39fc0"
+    }
+}
