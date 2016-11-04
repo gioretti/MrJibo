@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "behaviorify": "^1.0.0",
     "jibo": "^3.0.0",
     "mongodb": "^2.2.10"
