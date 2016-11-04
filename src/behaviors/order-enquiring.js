@@ -11,7 +11,7 @@ class OrderEnquiring extends Behavior {
     constructor(options) {
         super(options);
         this.status = Status.INVALID;
-        this.pm = new ProductManager(options.databaseURL);
+        this.pm = new ProductManager(options.assistantURL);
         this.keywords = options.getKeywords() ;
         this.onResult = options.onResult;
     }

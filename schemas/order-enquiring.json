@@ -6,9 +6,9 @@
 
           {
             "type": "string",
-            "field": "databaseURL",
-            "description": "The address of the database",
-            "defaultValue": "mongodb://localhost:27017/jiboshop"
+            "field": "assistantURL",
+            "description": "The address of the Assistant",
+            "defaultValue": "http://localhost:9000"
         },
           {
             "type": "function",

@@ -1,50 +1,28 @@
 "use strict";
 
-let MongoClient = require('mongodb').MongoClient, assert = require('assert');
+let Axios = require('axios');
 
 class ProductManager {
 
-    constructor(dbURL) {
-        this.dbURL = dbURL;
+    constructor(assistantURL) {
+        this.assistantURL = assistantURL;
+        console.log("ProductManager: registered to " + assistantURL);
     }
 
     findProduct(keywords, callback) {
-        var _this = this;
-        this.openConnection(function(db) {
-            _this.operationfindProduct(db, keywords, function(result){
-                console.log("Found the following records");
-                console.log(result);
-                _this.closeConnection(db);
-
-                callback(result);
-            });
-        });
-    }
-
-    openConnection(callback) {
-        var _this = this;
-        MongoClient.connect(this.dbURL, function(err, db) {
-          assert.equal(null, err);
-          console.log("Connected successfully to server");
-
-          callback(db);
-        });
-    }
-
-    closeConnection(db) {
-        db.close();
-        console.log("database connection closed");
-    }
-
-    operationfindProduct(db, keywords, callback) {
-        // Get the documents collection
-        var collection = db.collection('documents');
-        // Find some documents
-        console.log("looking for: " + keywords);
-        collection.find({'name': keywords}).toArray(function(err, docs) {
-            assert.equal(err, null);
-            callback(docs);
-        });
+        Axios.get(this.assistantURL + "/suggestion",
+                {params : {
+                        query : keywords
+                    }
+                })
+                .then( response => {
+                    console.log("ProductManager: - received a response: ");
+                    console.log(response);
+                    callback(response.data);
+                })
+                .catch( error => {
+                    console.log(error);
+                });
     }
 }
 

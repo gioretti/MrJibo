@@ -5,7 +5,8 @@
         "name": "",
         "options": {},
         "children": [
-            "9fd63f95-ef66-4c00-929c-4719b40b78fd",
+            "f8dfda94-9f62-4272-a178-af32f376d8f6",
+            "34bafbc4-ceec-405d-814a-7e22d53ac2b2",
             "93cdadd8-0d5d-4075-9dfb-070d212769aa",
             "03faf3fd-a12e-4653-ba52-5ee7f36b36fc"
         ]
@@ -196,25 +197,6 @@
         "asset-pack": "core",
         "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
     },
-    "9fd63f95-ef66-4c00-929c-4719b40b78fd": {
-        "id": "9fd63f95-ef66-4c00-929c-4719b40b78fd",
-        "class": "OrderEnquiring",
-        "name": "",
-        "options": {
-            "databaseURL": "mongodb://localhost:27017/jiboshop",
-            "getKeywords": [
-                "() => { ",
-                "    let keywords = notepad.product; ",
-                "    return keywords; ",
-                "}"
-            ],
-            "onResult": [
-                "(results) => { notepad.results = results; }"
-            ]
-        },
-        "asset-pack": "project",
-        "parent": 1
-    },
     "03faf3fd-a12e-4653-ba52-5ee7f36b36fc": {
         "id": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
         "class": "Switch",
@@ -253,5 +235,47 @@
             ]
         },
         "asset-pack": "core"
+    },
+    "f8dfda94-9f62-4272-a178-af32f376d8f6": {
+        "id": "f8dfda94-9f62-4272-a178-af32f376d8f6",
+        "class": "Subtree",
+        "name": "",
+        "options": {
+            "behaviorPath": "foundProduct.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "34bafbc4-ceec-405d-814a-7e22d53ac2b2": {
+        "id": "34bafbc4-ceec-405d-814a-7e22d53ac2b2",
+        "class": "OrderEnquiring",
+        "name": "",
+        "options": {
+            "assistantURL": "http://localhost:9000",
+            "getKeywords": [
+                "() => { ",
+                "    let keywords = notepad.product; ",
+                "    return keywords; ",
+                "}"
+            ],
+            "onResult": [
+                "(results) => { ",
+                "    console.log(\"Results of order Enquiring\");",
+                "    console.log(results);",
+                "    notepad.results = results; ",
+                "}"
+            ]
+        },
+        "asset-pack": "project",
+        "parent": 1
     }
 }
