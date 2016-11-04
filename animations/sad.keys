@@ -1,11 +1,107 @@
 {
     "version": "0.6.0",
     "framerate": 30,
-    "duration": 30,
+    "duration": 80,
     "scale": 1,
     "layers": [
         {
-            "id": "b6769148d920412fa148cc7799fa2581",
+            "id": "0999a09c03ee4cbd917b75f3a14112f0",
+            "name": "Body",
+            "type": "Body",
+            "visible": true,
+            "locked": false,
+            "keyframes": [
+                {
+                    "value": {
+                        "Head": 0,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 0
+                },
+                {
+                    "value": {
+                        "Head": 0,
+                        "Torso": -178,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 40
+                },
+                {
+                    "value": {
+                        "Head": 0,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 79
+                }
+            ]
+        },
+        {
+            "id": "03d396c0f1c544d097320fe2feb7ef8f",
+            "name": "Body #1",
+            "type": "Body",
+            "visible": true,
+            "locked": false,
+            "keyframes": [
+                {
+                    "value": {
+                        "Head": 1.4999999999998772,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 0
+                },
+                {
+                    "value": {
+                        "Head": 164.4999999999999,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 40
+                },
+                {
+                    "value": {
+                        "Head": 1.4999999999998772,
+                        "Torso": 0,
+                        "Pelvis": 0,
+                        "Tween": {
+                            "display": "sine in out",
+                            "label": "Sine Ease In Out",
+                            "value": "sineInOut"
+                        }
+                    },
+                    "time": 79
+                }
+            ]
+        },
+        {
+            "id": "2afa5278676942f883728e7d5affe741",
             "name": "Eye",
             "type": "Eye",
             "visible": true,
@@ -64,18 +160,18 @@
                             "y": 300
                         }
                     },
-                    "time": 20
+                    "time": 0
                 },
                 {
                     "value": {
                         "Rotate": 0,
                         "Scale": {
                             "x": 1,
-                            "y": 0.9389589530920903
+                            "y": 0.413445129502981
                         },
                         "Translate": {
-                            "x": 0,
-                            "y": 0
+                            "x": -0.5721639224533419,
+                            "y": 283.50883038467987
                         },
                         "Tween": {
                             "display": "sine in out",
@@ -87,8 +183,8 @@
                             "y": -300
                         },
                         "Vertex 2": {
-                            "x": 4.7415450299452,
-                            "y": 14.39994143645199
+                            "x": 0,
+                            "y": -300
                         },
                         "Vertex 3": {
                             "x": 300,
@@ -111,15 +207,15 @@
                             "y": 300
                         },
                         "Vertex 8": {
-                            "x": -1.5125266312925305,
-                            "y": 352.2394074319757
+                            "x": 0,
+                            "y": 300
                         },
                         "Vertex 9": {
                             "x": 300,
                             "y": 300
                         }
                     },
-                    "time": 25
+                    "time": 40
                 },
                 {
                     "value": {
@@ -174,84 +270,7 @@
                             "y": 300
                         }
                     },
-                    "time": 29
-                }
-            ]
-        },
-        {
-            "id": "ceab0d85176a4defae28e30702b00f8c",
-            "name": "Eye Texture",
-            "type": "Eye Texture",
-            "visible": true,
-            "locked": false,
-            "keyframes": [
-                {
-                    "value": {
-                        "Texture": "animations/textures/white-eye.png",
-                        "Color": {
-                            "r": 34,
-                            "g": 36,
-                            "b": 133
-                        }
-                    },
-                    "time": 20
-                },
-                {
-                    "value": {
-                        "Texture": "animations/textures/white-eye.png",
-                        "Color": {
-                            "r": 133,
-                            "g": 34,
-                            "b": 34
-                        }
-                    },
-                    "time": 25
-                },
-                {
-                    "value": {
-                        "Texture": "animations/textures/white-eye.png",
-                        "Color": {
-                            "r": 34,
-                            "g": 56,
-                            "b": 133
-                        }
-                    },
-                    "time": 29
-                }
-            ]
-        },
-        {
-            "id": "55b72c1b272944c38098c0e89164a528",
-            "name": "Body",
-            "type": "Body",
-            "visible": true,
-            "locked": false,
-            "keyframes": [
-                {
-                    "value": {
-                        "Head": -191.00000000000003,
-                        "Torso": -157.5,
-                        "Pelvis": 0,
-                        "Tween": {
-                            "display": "sine in out",
-                            "label": "Sine Ease In Out",
-                            "value": "sineInOut"
-                        }
-                    },
-                    "time": 0
-                },
-                {
-                    "value": {
-                        "Head": 0,
-                        "Torso": 0,
-                        "Pelvis": 0,
-                        "Tween": {
-                            "display": "sine in out",
-                            "label": "Sine Ease In Out",
-                            "value": "sineInOut"
-                        }
-                    },
-                    "time": 29
+                    "time": 79
                 }
             ]
         }
