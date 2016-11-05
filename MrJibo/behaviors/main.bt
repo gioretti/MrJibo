@@ -8,7 +8,7 @@
             "94c108e0-aada-455f-9486-b79a4e7d7a74",
             "0534b8a9-1ec4-4edc-b455-79cee77cc543",
             "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
-            "5d7cbccc-b793-4054-bd62-3267120870ee",
+            "47703041-64a3-432f-91a1-cf6614a44a29",
             "13e49aee-bd12-474c-8002-36f211cd801b"
         ],
         "decorators": [
@@ -83,7 +83,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29"
     },
     "13e49aee-bd12-474c-8002-36f211cd801b": {
         "id": "13e49aee-bd12-474c-8002-36f211cd801b",
@@ -323,6 +323,61 @@
             "conditional": [
                 "() => {",
                 "    return !notepad.isEngaged;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "47703041-64a3-432f-91a1-cf6614a44a29": {
+        "id": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": true
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
+            "5d7cbccc-b793-4054-bd62-3267120870ee"
+        ]
+    },
+    "cf2b8e83-a988-4caf-9c79-cdc336a76b6b": {
+        "id": "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
+        "class": "Subtree",
+        "name": "",
+        "options": {
+            "behaviorPath": "listen.bt",
+            "getNotepad": [
+                "() => {",
+                "  console.log(\"test\")",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "skipped": false,
+        "decorators": [
+            "98b091af-77ab-4af8-af7e-b9653861c759"
+        ]
+    },
+    "98b091af-77ab-4af8-af7e-b9653861c759": {
+        "id": "98b091af-77ab-4af8-af7e-b9653861c759",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
                 "}"
             ]
         },
