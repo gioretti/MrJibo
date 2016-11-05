@@ -1,0 +1,28 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "5a591f30-ee37-4b5b-b882-4658208cf468"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "5a591f30-ee37-4b5b-b882-4658208cf468": {
+        "id": "5a591f30-ee37-4b5b-b882-4658208cf468",
+        "class": "TextToSpeech",
+        "name": "",
+        "options": {
+            "words": "This is the checkout.",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    }
+}
