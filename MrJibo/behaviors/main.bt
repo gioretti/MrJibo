@@ -92,7 +92,7 @@
         "asset-pack": "core",
         "parent": 1,
         "children": [
-            "f7dad3fc-ae51-499c-a339-467928d26c83",
+            "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
             "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
         ],
         "decorators": []
@@ -268,30 +268,8 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
-        "decorators": [
-            "876a3595-f8be-47da-b2f3-f36535c3fe90"
-        ]
-    },
-    "876a3595-f8be-47da-b2f3-f36535c3fe90": {
-        "id": "876a3595-f8be-47da-b2f3-f36535c3fe90",
-        "class": "Case",
-        "name": "",
-        "options": {
-            "conditional": [
-                "() => {",
-                "  let action = notepad.action;",
-                "  console.log(action);",
-                "  if ( action !== undefined && action == \"takeOrder\" ) {",
-                "      console.log(\"I take a Order\");",
-                "      return true;",
-                "  } else {",
-                "      return false;",
-                "  }",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "decorators": []
     },
     "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6": {
         "id": "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6",
@@ -387,5 +365,54 @@
             ]
         },
         "asset-pack": "core"
+    },
+    "bf0ebe7b-7562-4f9f-8d22-39cf50830a29": {
+        "id": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "children": [
+            "f7dad3fc-ae51-499c-a339-467928d26c83",
+            "746ef968-f32f-4212-b68e-fbd62cd5beb3"
+        ],
+        "decorators": [
+            "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a"
+        ]
+    },
+    "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a": {
+        "id": "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  let action = notepad.action;",
+                "  console.log(action);",
+                "  if ( action !== undefined && action == \"takeOrder\" ) {",
+                "      console.log(\"I take a Order\");",
+                "      return true;",
+                "  } else {",
+                "      return false;",
+                "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "746ef968-f32f-4212-b68e-fbd62cd5beb3": {
+        "id": "746ef968-f32f-4212-b68e-fbd62cd5beb3",
+        "class": "TextToSpeech",
+        "name": "something else?",
+        "options": {
+            "words": "Can I do something else for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29"
     }
 }

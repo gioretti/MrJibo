@@ -93,8 +93,7 @@
         "parent": "96f108e2-a489-423b-9460-d99d2852757a",
         "children": [
             "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
-            "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
-            "a82ef6d4-2d9e-4c73-8376-628d607de46c"
+            "2634f28b-bbd4-4fa7-9ab8-07d28031318c"
         ],
         "decorators": [
             "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa"
@@ -135,8 +134,7 @@
         "asset-pack": "core",
         "parent": "96f108e2-a489-423b-9460-d99d2852757a",
         "children": [
-            "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4",
-            "c8bad9bb-937b-42b1-857f-5478a0736dbf"
+            "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4"
         ],
         "decorators": [
             "30670bb3-0bbd-4a49-a697-8010ce3b59d6"
@@ -168,34 +166,6 @@
             ]
         },
         "asset-pack": "core"
-    },
-    "a82ef6d4-2d9e-4c73-8376-628d607de46c": {
-        "id": "a82ef6d4-2d9e-4c73-8376-628d607de46c",
-        "class": "TextToSpeech",
-        "name": "something else?",
-        "options": {
-            "words": "Can I do something else for you?",
-            "onWord": [
-                "(word) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
-    },
-    "c8bad9bb-937b-42b1-857f-5478a0736dbf": {
-        "id": "c8bad9bb-937b-42b1-857f-5478a0736dbf",
-        "class": "TextToSpeech",
-        "name": "something else?",
-        "options": {
-            "words": "Can I do something else for you?",
-            "onWord": [
-                "(word) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
     },
     "03faf3fd-a12e-4653-ba52-5ee7f36b36fc": {
         "id": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
