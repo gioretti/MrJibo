@@ -161,9 +161,12 @@
                 "      notepad.action = \"\";",
                 "      notepad.results = {};",
                 "      notepad.isEngaged = false;",
-                "      notepad.shoppingCart = {};",
+                "      notepad.shoppingCart = [];",
                 "      notepad.isInitialized = true;",
                 "  }",
+                "  ",
+                "  console.log(\"Items in shopping cart:\");",
+                "  console.log(notepad.shoppingCart);",
                 "  ",
                 "}"
             ]
@@ -248,20 +251,19 @@
                 "",
                 "    let Text2Number = require('./../src/utilities/Text2Number');",
                 "    let quantityAsText = notepad.results.quantity;",
-                "    let subtreeNotepad;",
                 "    ",
-                "    let order = {};",
-                "    order.product = notepad.results.product;",
-                "    order.quantity = Text2Number(quantityAsText);",
-                "    ",
-                "    subtreeNotepad.order = order",
-                "    subtreeNotepad.shoppingCart = notepad.shoppingCart",
-                "    ",
+                "    let subtreeNotepad = {};",
+                "    subtreeNotepad.product = notepad.results.product;",
+                "    subtreeNotepad.quantity = Text2Number(quantityAsText);",
+                "        ",
                 "    return subtreeNotepad;",
                 "}"
             ],
             "onResult": [
                 "(treeResult) => {",
+                "    if(treeResult.product != undefined) {",
+                "        notepad.shoppingCart.push(treeResult.product);",
+                "    }",
                 "}"
             ]
         },
@@ -354,7 +356,6 @@
             "behaviorPath": "listen.bt",
             "getNotepad": [
                 "() => {",
-                "  console.log(\"test\")",
                 "    return {};",
                 "}"
             ],

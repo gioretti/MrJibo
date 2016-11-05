@@ -244,7 +244,7 @@
             "assistantURL": "http://localhost:9000",
             "getKeywords": [
                 "() => { ",
-                "    let keywords = notepad.order.product; ",
+                "    let keywords = notepad.product; ",
                 "    return keywords; ",
                 "}"
             ],
@@ -393,7 +393,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "    notepad.shoppingCart.push(notepad.results);",
+                "    result.product = notepad.results",
                 "}"
             ]
         },
