@@ -457,7 +457,9 @@
             "behaviorPath": "checkout.bt",
             "getNotepad": [
                 "() => {",
-                "    return {};",
+                "    return {",
+                "        shoppingCart : notepad.shoppingCart",
+                "    };",
                 "}"
             ],
             "onResult": [

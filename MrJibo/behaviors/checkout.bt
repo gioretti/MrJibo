@@ -5,6 +5,7 @@
         "name": "",
         "options": {},
         "children": [
+            "c95a9115-cf00-482c-82c5-a0e93c0c4ea7",
             "5a591f30-ee37-4b5b-b882-4658208cf468"
         ]
     },
@@ -19,6 +20,24 @@
             "words": "This is the checkout.",
             "onWord": [
                 "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "c95a9115-cf00-482c-82c5-a0e93c0c4ea7": {
+        "id": "c95a9115-cf00-482c-82c5-a0e93c0c4ea7",
+        "class": "ExecuteScript",
+        "name": "calculateTotal",
+        "options": {
+            "exec": [
+                "() => {",
+                "    notepad.totalPrice = 0;",
+                "    notepad.shoppingCart.forEach( item => {",
+                "        notepad.totalPrice = notepad.totalPrice + item.quantity * item.price;",
+                "    });",
+                "    console.log(\"Total Price: \"  + notepad.totalPrice);",
                 "}"
             ]
         },
