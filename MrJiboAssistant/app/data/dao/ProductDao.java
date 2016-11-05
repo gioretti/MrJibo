@@ -1,4 +1,4 @@
-package db.dao;
+package data.dao;
 
 import javax.inject.Inject;
 

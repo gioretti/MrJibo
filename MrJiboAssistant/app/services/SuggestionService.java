@@ -1,7 +1,7 @@
 package services;
 
 
-import db.dao.ProductDao;
+import data.dao.ProductDao;
 import model.Product;
 import services.irsystem.RetrievalSystem;
 import services.irsystem.model.InformationElement;
