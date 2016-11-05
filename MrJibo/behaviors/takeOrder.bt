@@ -92,6 +92,7 @@
         "asset-pack": "core",
         "parent": "96f108e2-a489-423b-9460-d99d2852757a",
         "children": [
+            "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
             "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
             "a82ef6d4-2d9e-4c73-8376-628d607de46c"
         ],
@@ -104,7 +105,7 @@
         "class": "TextToSpeech",
         "name": "(dummy) add item to chart",
         "options": {
-            "words": "I've put the item in your chart.",
+            "words": "I've the item is on your chart.",
             "onWord": [
                 "(word) => {",
                 "}"
@@ -392,7 +393,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "    result.product = notepad.results;",
+                "    result.product = notepad.results[0];",
                 "    result.product.quantity = notepad.quantity;",
                 "}"
             ]
