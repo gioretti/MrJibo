@@ -375,7 +375,9 @@
         "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
         "children": [
             "f7dad3fc-ae51-499c-a339-467928d26c83",
-            "746ef968-f32f-4212-b68e-fbd62cd5beb3"
+            "746ef968-f32f-4212-b68e-fbd62cd5beb3",
+            "0cd69c3e-f90e-43e2-9681-8f7580f6d10b",
+            "30960c7c-d8f0-4100-a2a7-2289f6304363"
         ],
         "decorators": [
             "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a"
@@ -414,5 +416,84 @@
         },
         "asset-pack": "core",
         "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29"
+    },
+    "0cd69c3e-f90e-43e2-9681-8f7580f6d10b": {
+        "id": "0cd69c3e-f90e-43e2-9681-8f7580f6d10b",
+        "class": "ListenJs",
+        "name": "listen for: yes or no",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "getRule": [
+                "(callback) => {",
+                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl};\");",
+                "}"
+            ],
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        notepad.someThingElse = asrResult.NLParse.confirmed;",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29"
+    },
+    "228ae9cd-dd49-48e1-8532-3dbdd3b83790": {
+        "id": "228ae9cd-dd49-48e1-8532-3dbdd3b83790",
+        "class": "Subtree",
+        "name": "checkout",
+        "options": {
+            "behaviorPath": "checkout.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "30960c7c-d8f0-4100-a2a7-2289f6304363",
+        "decorators": [
+            "406ff11f-5854-4428-9002-ca312b7a6a0d"
+        ]
+    },
+    "30960c7c-d8f0-4100-a2a7-2289f6304363": {
+        "id": "30960c7c-d8f0-4100-a2a7-2289f6304363",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "children": [
+            "228ae9cd-dd49-48e1-8532-3dbdd3b83790"
+        ]
+    },
+    "406ff11f-5854-4428-9002-ca312b7a6a0d": {
+        "id": "406ff11f-5854-4428-9002-ca312b7a6a0d",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    console.log(\"Checkout? -> \" + notepad.someThingElse);",
+                "    return notepad.someThingElse == 'no';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
     }
 }
