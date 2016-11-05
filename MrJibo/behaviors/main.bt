@@ -7,7 +7,6 @@
         "children": [
             "94c108e0-aada-455f-9486-b79a4e7d7a74",
             "0534b8a9-1ec4-4edc-b455-79cee77cc543",
-            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
             "47703041-64a3-432f-91a1-cf6614a44a29",
             "13e49aee-bd12-474c-8002-36f211cd801b"
         ],
@@ -227,14 +226,15 @@
                 "\treturn position;",
                 "}"
             ],
-            "isContinuous": false,
+            "isContinuous": true,
             "config": [
                 "(lookAt) => {",
                 "}"
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "decorators": []
     },
     "f7dad3fc-ae51-499c-a339-467928d26c83": {
         "id": "f7dad3fc-ae51-499c-a339-467928d26c83",
@@ -339,13 +339,14 @@
         "parent": 1,
         "children": [
             "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
+            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
             "5d7cbccc-b793-4054-bd62-3267120870ee"
         ]
     },
     "cf2b8e83-a988-4caf-9c79-cdc336a76b6b": {
         "id": "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
         "class": "Subtree",
-        "name": "",
+        "name": "listen easy",
         "options": {
             "behaviorPath": "listen.bt",
             "getNotepad": [

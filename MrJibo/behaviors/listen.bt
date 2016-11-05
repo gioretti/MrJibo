@@ -101,11 +101,11 @@
         "asset-pack": "core",
         "parent": 1,
         "children": [
-            "2f7ac676-9c82-4801-bbe9-b50d5d0e52c3",
             "13afd3b3-bfb5-40ad-aa12-d9856a6d58d6",
             "25c7bd9e-17c8-4948-ac7c-6685fd053fec"
         ],
-        "decorators": []
+        "decorators": [],
+        "skipped": true
     },
     "25c7bd9e-17c8-4948-ac7c-6685fd053fec": {
         "id": "25c7bd9e-17c8-4948-ac7c-6685fd053fec",
@@ -130,21 +130,6 @@
             "config": [
                 "(animation) => {",
                 "  console.log(\"i'm moving my head while listening\")",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "c070f44d-48e6-4bb1-a217-1268ac3b283a"
-    },
-    "2f7ac676-9c82-4801-bbe9-b50d5d0e52c3": {
-        "id": "2f7ac676-9c82-4801-bbe9-b50d5d0e52c3",
-        "class": "ExecuteScript",
-        "name": "",
-        "options": {
-            "exec": [
-                "() => {",
-                "  ",
-                "  console.log(\"asfdsaf<yccxxycyc\")",
                 "}"
             ]
         },
