@@ -393,7 +393,8 @@
         "options": {
             "exec": [
                 "() => {",
-                "    result.product = notepad.results",
+                "    result.product = notepad.results;",
+                "    result.product.quantity = notepad.quantity;",
                 "}"
             ]
         },
