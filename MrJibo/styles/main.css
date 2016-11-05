@@ -7,3 +7,17 @@ body {
     width: 1280px;
     height: 720px;
 }
+
+#price {
+    width: 1280px;
+    height: 720px;
+    background-color: black;
+}
+
+#price p {
+    margin: auto;
+    text-align: center;
+    font-size: 300px;
+    font-style: bold;
+    color: white;
+}
