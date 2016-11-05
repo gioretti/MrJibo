@@ -542,26 +542,6 @@
                     "time": 59
                 }
             ]
-        },
-        {
-            "id": "8ba1ab81384940ba8a4e1e7f212546c0",
-            "name": "Eye Texture",
-            "type": "Eye Texture",
-            "visible": true,
-            "locked": false,
-            "keyframes": [
-                {
-                    "value": {
-                        "Texture": "animations/textures/happy-face.png",
-                        "Color": {
-                            "r": 255,
-                            "g": 255,
-                            "b": 255
-                        }
-                    },
-                    "time": 0
-                }
-            ]
         }
     ]
 }
