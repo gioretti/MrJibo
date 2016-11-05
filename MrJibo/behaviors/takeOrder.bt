@@ -92,6 +92,7 @@
         "asset-pack": "core",
         "parent": "96f108e2-a489-423b-9460-d99d2852757a",
         "children": [
+            "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
             "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
             "a82ef6d4-2d9e-4c73-8376-628d607de46c"
         ],
@@ -243,7 +244,7 @@
             "assistantURL": "http://localhost:9000",
             "getKeywords": [
                 "() => { ",
-                "    let keywords = notepad.product; ",
+                "    let keywords = notepad.order.product; ",
                 "    return keywords; ",
                 "}"
             ],
@@ -384,5 +385,19 @@
         },
         "asset-pack": "core",
         "parent": "b840e893-f021-4c01-8922-705fc748198e"
+    },
+    "3b7ce613-5a19-4d7b-97fe-b46d64b18b29": {
+        "id": "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "    notepad.shoppingCart.push(notepad.results);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
     }
 }
