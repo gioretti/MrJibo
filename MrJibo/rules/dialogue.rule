@@ -27,7 +27,7 @@ quantity =  (a couple) { _value = 'two' }
 number @= (zero | one | two | three | four | five | six | seven | eight | nine |
           then | eleven | twelve  |  thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen |
           twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety |
-          hundred  | thousand | million | billion | trillion | quadrillion | quintillion | sextillion | septillion | octillion | nonillion | decillion)(+$w)
+          hundred  | thousand | million | billion | trillion | quadrillion | quintillion | sextillion | septillion | octillion | nonillion | decillion)(*$w)
           {_value = _parsed};
 
 product @= (+$w){_product = _parsed};
