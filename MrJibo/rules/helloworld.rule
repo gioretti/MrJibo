@@ -1,1 +1,3 @@
-TopRule = $factory:yes_no{confirmed = yes_no._nl};
+TopRule = $factory:yes_no{confirmed = yes_no._nl}
+            |
+    $* {confirmed = 'yes'};

@@ -182,6 +182,7 @@
             "exec": [
                 "() => {",
                 "  notepad.isEngaged = false;",
+                "  notepad.shoppingCart = [];",
                 "}"
             ]
         },
@@ -435,7 +436,7 @@
             ],
             "getRule": [
                 "(callback) => {",
-                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl};\");",
+                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl} | $* {confirmed = 'yes'};\");",
                 "}"
             ],
             "onResult": [

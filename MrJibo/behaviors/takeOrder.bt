@@ -104,7 +104,7 @@
         "class": "TextToSpeech",
         "name": "(dummy) add item to chart",
         "options": {
-            "words": "I've the item is on your chart.",
+            "words": "I'll add the product in your cart then.",
             "onWord": [
                 "(word) => {",
                 "}"
@@ -247,7 +247,7 @@
     "f5ad6c8c-d9cb-4493-8f9b-2a4bfdc33772": {
         "id": "f5ad6c8c-d9cb-4493-8f9b-2a4bfdc33772",
         "class": "Subtree",
-        "name": "found",
+        "name": "found Animation",
         "options": {
             "behaviorPath": "foundProduct.bt",
             "getNotepad": [
@@ -295,12 +295,11 @@
     "8a57ee8f-68e8-4047-96e9-8dc61e8ebdb0": {
         "id": "8a57ee8f-68e8-4047-96e9-8dc61e8ebdb0",
         "class": "Subtree",
-        "name": "notFound",
+        "name": "notFound Animation",
         "options": {
             "behaviorPath": "notFoundProduct.bt",
             "getNotepad": [
                 "() => {",
-                "  console.log (\"animation not found, getNotepad\")",
                 "    return {};",
                 "}"
             ],
@@ -345,7 +344,7 @@
     "ab4fba4e-338c-47c0-8250-24dee4684060": {
         "id": "ab4fba4e-338c-47c0-8250-24dee4684060",
         "class": "PlayAnimation",
-        "name": "",
+        "name": "think",
         "options": {
             "animPath": "thinking.keys",
             "config": [
@@ -359,7 +358,7 @@
     "3b7ce613-5a19-4d7b-97fe-b46d64b18b29": {
         "id": "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
         "class": "ExecuteScript",
-        "name": "",
+        "name": "Save product as result",
         "options": {
             "exec": [
                 "() => {",
