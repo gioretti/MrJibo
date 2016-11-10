@@ -9,28 +9,24 @@ import play.mvc.Result;
 import services.SuggestionService;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductController extends Controller {
 
-    private final ProductDao productDao;
     private final SuggestionService suggestionService;
 
     @Inject
-    public ProductController(ProductDao productDao, SuggestionService suggestionService) {
-        this.productDao = productDao;
+    public ProductController(SuggestionService suggestionService) {
         this.suggestionService = suggestionService;
     }
 
     public Result suggestion(String query){
 
-        Logger.info("Product suggestion, received query: " + query);
+        Logger.info("/suggestion, received query: " + query);
 
-        ArrayList<Product> suggestions = new ArrayList<>();
-        Product product = suggestionService.getBestSuggestion(query);
-        suggestions.add(product);
+        List<Product> suggestions = suggestionService.getBestSuggestion(query, 100);
 
-        if(product != null){
+        if(suggestions != null && suggestions.size() > 0){
             return ok(Json.toJson(suggestions));
         } else {
             return notFound();
