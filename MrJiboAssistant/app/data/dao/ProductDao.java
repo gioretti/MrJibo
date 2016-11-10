@@ -18,7 +18,7 @@ public class ProductDao {
     }
 
     public MongoCollection products() {
-        return jongo.getCollection("documents");
+        return jongo.getCollection("products");
     }
 
     public MongoCursor<Product> findAll() {
