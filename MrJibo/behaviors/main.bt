@@ -61,14 +61,6 @@
             "onResult": [
                 "(listener) => {",
                 "  ",
-                "    // console.log(\"I'm listening...\");",
-                "    // ",
-                "    // listener.on('hey-jibo', (asrResult, speaker) => {",
-                "    //     console.log(\"someone called me?\");",
-                "    //     notepad.isBusy = true;",
-                "    //     emitter.emit(\"engageJibo\");",
-                "    // });",
-                "",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
                 "        ",
                 "        console.log(\"listen on the cloud...\");",
@@ -251,11 +243,15 @@
                 "() => {",
                 "",
                 "    let Text2Number = require('./../src/utilities/Text2Number');",
-                "    let quantityAsText = notepad.results.quantity;",
+                "    let quantity = notepad.results.quantity;",
+                "    ",
+                "    if(isNaN(quantity)){",
+                "        quantity = Text2Number(quantity);",
+                "    }",
                 "    ",
                 "    let subtreeNotepad = {};",
                 "    subtreeNotepad.product = notepad.results.product;",
-                "    subtreeNotepad.quantity = Text2Number(quantityAsText);",
+                "    subtreeNotepad.quantity = quantity;",
                 "        ",
                 "    return subtreeNotepad;",
                 "}"
@@ -453,7 +449,7 @@
     "228ae9cd-dd49-48e1-8532-3dbdd3b83790": {
         "id": "228ae9cd-dd49-48e1-8532-3dbdd3b83790",
         "class": "Subtree",
-        "name": "checkout",
+        "name": "checkout & empty shopping cart",
         "options": {
             "behaviorPath": "checkout.bt",
             "getNotepad": [
@@ -465,6 +461,7 @@
             ],
             "onResult": [
                 "(treeResult) => {",
+                "      notepad.shoppingCart = [];",
                 "}"
             ]
         },
