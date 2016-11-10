@@ -1,3 +1,19 @@
-TopRule = $factory:yes_no{confirmed = yes_no._nl}
-            |
-    $* {confirmed = 'yes'};
+TopRule = (a couple) { value = '2' }
+                |
+            (a) { value = '1' }
+                |
+            (the) { value = '1' }
+                |
+            $number {value = number._value}
+;
+
+number @=
+     [+$digit] {_value = _parsed} |
+     (+$wordDigit) {_value = _parsed};
+
+digit [(1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0)];
+wordDigit =
+        (zero | one | two | three | four | five | six | seven | eight | nine |
+          then | eleven | twelve  |  thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen |
+          twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety |
+          hundred  | thousand | million | billion | trillion | quadrillion | quintillion | sextillion | septillion | octillion | nonillion | decillion);
