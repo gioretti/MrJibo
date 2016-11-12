@@ -81,7 +81,7 @@ public class SuggestionService {
         List<InformationElement> filteredRangList = new ArrayList<>();
         for(InformationElement elem : rangList){
             double ratio = resultMap.get(elem) / bestValue;
-            if ( ratio > 0.6 ) {
+            if ( ratio > 0.9 ) {
                 filteredRangList.add(elem);
             }
         }

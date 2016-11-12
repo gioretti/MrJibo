@@ -1,6 +1,5 @@
 package controllers;
 
-import data.dao.ProductDao;
 import model.Product;
 import play.Logger;
 import play.libs.Json;
