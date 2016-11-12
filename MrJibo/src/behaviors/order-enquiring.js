@@ -12,7 +12,7 @@ class OrderEnquiring extends Behavior {
         super(options);
         this.status = Status.INVALID;
         this.pm = new ProductManager(options.assistantURL);
-        this.keywords = options.getKeywords() ;
+        this.keywords = options.getKeywords ;
         this.onResult = options.onResult;
     }
 
@@ -20,7 +20,7 @@ class OrderEnquiring extends Behavior {
         this.status = Status.IN_PROGRESS;
         var _this = this;
 
-        this.pm.findProduct(this.keywords, function(result) {
+        this.pm.findProduct(this.keywords(), function(result) {
             _this.onResult(result);
             _this.status = Status.SUCCEEDED;
         });

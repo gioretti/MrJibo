@@ -5,7 +5,7 @@
         "name": "",
         "options": {},
         "children": [
-            "b840e893-f021-4c01-8922-705fc748198e",
+            "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
             "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
             "03faf3fd-a12e-4653-ba52-5ee7f36b36fc"
         ]
@@ -170,7 +170,7 @@
     "03faf3fd-a12e-4653-ba52-5ee7f36b36fc": {
         "id": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
         "class": "Switch",
-        "name": "",
+        "name": "CONFIRMATION",
         "options": {},
         "asset-pack": "core",
         "parent": 1,
@@ -200,7 +200,8 @@
         "options": {
             "conditional": [
                 "() => {",
-                "    return ( notepad.hasProduct )",
+                "    console.log(\"------------------------------------------------------------------\");",
+                "    return ( notepad.hasProduct );",
                 "}"
             ]
         },
@@ -209,13 +210,12 @@
     "34bafbc4-ceec-405d-814a-7e22d53ac2b2": {
         "id": "34bafbc4-ceec-405d-814a-7e22d53ac2b2",
         "class": "OrderEnquiring",
-        "name": "",
+        "name": "query the assistant",
         "options": {
             "assistantURL": "http://localhost:9000",
             "getKeywords": [
                 "() => { ",
-                "    let keywords = notepad.product; ",
-                "    return keywords; ",
+                "    return notepad.query; ",
                 "}"
             ],
             "onResult": [
@@ -233,7 +233,7 @@
     "e711ce2f-2090-49c8-90e9-8f34d23f3a6f": {
         "id": "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
         "class": "Parallel",
-        "name": "",
+        "name": "FOUND OR NOT FOUND",
         "options": {
             "succeedOnOne": false
         },
@@ -286,6 +286,7 @@
         "options": {
             "conditional": [
                 "() => {",
+                "    console.log(\"------------------------------------------------check stuff notfoudn\");",
                 "  return ( notepad.hasProduct )",
                 "}"
             ]
@@ -321,7 +322,8 @@
         "options": {
             "conditional": [
                 "() => {",
-                "  return !(notepad.hasProduct)",
+                "  console.log(\"------------------------------------------------check stuff notfoudn\");",
+                "  return ( !notepad.hasProduct )",
                 "}"
             ]
         },
@@ -335,7 +337,7 @@
             "succeedOnOne": false
         },
         "asset-pack": "core",
-        "parent": 1,
+        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
         "children": [
             "ab4fba4e-338c-47c0-8250-24dee4684060",
             "34bafbc4-ceec-405d-814a-7e22d53ac2b2"
@@ -369,5 +371,131 @@
         },
         "asset-pack": "core",
         "parent": "0f04fb38-8527-452d-9549-13973872b25d"
+    },
+    "b45f74e5-dc07-4b09-897a-a619185d5b09": {
+        "id": "b45f74e5-dc07-4b09-897a-a619185d5b09",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+        "children": [
+            "c655e1ae-499b-4bf9-9034-364cb810117e"
+        ],
+        "decorators": []
+    },
+    "0d1d40b6-3157-4952-bbdf-937b93c4656f": {
+        "id": "0d1d40b6-3157-4952-bbdf-937b93c4656f",
+        "class": "TextToSpeechJs",
+        "name": "ask for more keywords",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    callback(\"I've found \" + ",
+                "            notepad.results.length + ",
+                "            \" products for what you've asked. Please give me a bit more information.\");",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "c655e1ae-499b-4bf9-9034-364cb810117e"
+    },
+    "0d297fe3-94a4-45db-9c1c-a5e94cd738f3": {
+        "id": "0d297fe3-94a4-45db-9c1c-a5e94cd738f3",
+        "class": "Listen",
+        "name": "listem for keywords",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: false,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "keywords.rule",
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        let newKeywords = asrResult.NLParse.keywords;",
+                "        notepad.query += \" \" + newKeywords;",
+                "        console.log(\"new Query is: \" + notepad.query);",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "c655e1ae-499b-4bf9-9034-364cb810117e"
+    },
+    "0f9ff152-28f3-4745-a7c5-0705a308b1d2": {
+        "id": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+        "class": "Sequence",
+        "name": "Search for right product",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "b840e893-f021-4c01-8922-705fc748198e",
+            "b45f74e5-dc07-4b09-897a-a619185d5b09"
+        ],
+        "decorators": [
+            "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26"
+        ]
+    },
+    "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26": {
+        "id": "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    let hasTooManyProducts = notepad.results != undefined && notepad.results.length > 1;",
+                "    console.log(\"----------------------------------------------------------WHILE CONDITIONAL\");",
+                "    return ( hasTooManyProducts );",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "c655e1ae-499b-4bf9-9034-364cb810117e": {
+        "id": "c655e1ae-499b-4bf9-9034-364cb810117e",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "b45f74e5-dc07-4b09-897a-a619185d5b09",
+        "children": [
+            "0d1d40b6-3157-4952-bbdf-937b93c4656f",
+            "0d297fe3-94a4-45db-9c1c-a5e94cd738f3"
+        ],
+        "decorators": [
+            "148b4cc2-d3b1-4c61-8974-aafbda625922"
+        ]
+    },
+    "148b4cc2-d3b1-4c61-8974-aafbda625922": {
+        "id": "148b4cc2-d3b1-4c61-8974-aafbda625922",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    // true if there is many possible products have been found",
+                "    return notepad.hasProduct && notepad.results.length > 1;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
     }
 }

@@ -250,7 +250,7 @@
                 "    }",
                 "    ",
                 "    let subtreeNotepad = {};",
-                "    subtreeNotepad.product = notepad.results.product;",
+                "    subtreeNotepad.query = notepad.results.product;",
                 "    subtreeNotepad.quantity = quantity;",
                 "        ",
                 "    return subtreeNotepad;",
