@@ -13,6 +13,7 @@ public class RetrievalSystem {
 
     private Collection<InformationElement> queries;
     private Collection<InformationElement> docs;
+    private Indexer indexer = new Indexer();
 
     private InvertedIndex invertedIndex = new InvertedIndex();
     private NonInvertedIndex nonInvertedIndex = new NonInvertedIndex();
@@ -22,7 +23,7 @@ public class RetrievalSystem {
 
     public RetrievalSystem(Collection<InformationElement> docs){
         this.docs = docs;
-        Indexer.indexDocuments(docs, invertedIndex, nonInvertedIndex, termRepertory);
+        indexer.indexDocuments(docs, invertedIndex, nonInvertedIndex, termRepertory);
         calculateIdfAndNorms();
     }
 
@@ -31,9 +32,13 @@ public class RetrievalSystem {
         this.setQueries(queries);
     }
 
+    public void setStamming(boolean isStamming){
+        this.indexer.setStamming(isStamming);
+    }
+
     public void setQueries(Collection<InformationElement> queries) {
         this.queries = queries;
-        Indexer.indexQueries(queries, queryIndex, termRepertory);
+        indexer.indexQueries(queries, queryIndex, termRepertory);
     }
 
     public void setQueries(InformationElement query) {

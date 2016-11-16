@@ -12,7 +12,18 @@ import java.util.Collection;
 
 public class Indexer {
 
-    public static void indexDocuments(Collection<InformationElement> documents,
+    private boolean stamming = false;
+    private Stemmer stemmer = new Stemmer();
+
+    public boolean isStamming() {
+        return stamming;
+    }
+
+    public void setStamming(boolean stamming) {
+        this.stamming = stamming;
+    }
+
+    public void indexDocuments(Collection<InformationElement> documents,
                                       InvertedIndex invertedIndex,
                                       NonInvertedIndex nonInvertedIndex,
                                       TermRepertory termRepertory) {
@@ -21,7 +32,7 @@ public class Indexer {
         }
     }
 
-    public static void indexQueries(Collection<InformationElement> queries,
+    public void indexQueries(Collection<InformationElement> queries,
                                     NonInvertedIndex queryIndex,
                                     TermRepertory termRepertory) {
         for( InformationElement e : queries ){
@@ -29,7 +40,7 @@ public class Indexer {
         }
     }
 
-    private static void indexInformationElement(InformationElement element,
+    private void indexInformationElement(InformationElement element,
                                                 InvertedIndex invertedIndex,
                                                 NonInvertedIndex nonInvertedIndex,
                                                 TermRepertory termRepertory){
@@ -56,7 +67,14 @@ public class Indexer {
         }
     }
 
-    private static Term getTerm(String termValue, TermRepertory termRepertory) {
+    private Term getTerm(String termValue, TermRepertory termRepertory) {
+
+        if(this.isStamming()){
+            stemmer.add(termValue.toCharArray(), termValue.length());
+            stemmer.stem();
+            termValue = stemmer.toString();
+        }
+
         Term term = termRepertory.get(termValue);
         if ( term == null ) {
             term = new Term(termValue);

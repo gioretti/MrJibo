@@ -9,7 +9,6 @@ import services.irsystem.model.Result;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.sound.midi.MidiDevice;
 import java.util.*;
 
 @Singleton
@@ -45,6 +44,7 @@ public class SuggestionService {
             namesMap.put(product.getId(), name);
         }
 
+        this.rsDescriptions.setStamming(true);
         this.rsDescriptions = new RetrievalSystem(productDescriptions);
         this.rsNames = new RetrievalSystem(productNames);
     }
