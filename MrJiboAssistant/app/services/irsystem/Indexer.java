@@ -80,6 +80,7 @@ public class Indexer {
             term = new Term(termValue);
             termRepertory.put(termValue, term);
         }
+
         return term;
     }
 }

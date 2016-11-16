@@ -21,16 +21,7 @@ public class RetrievalSystem {
     private TermRepertory termRepertory = new TermRepertory();
     private Result result = new Result();
 
-    public RetrievalSystem(Collection<InformationElement> docs){
-        this.docs = docs;
-        indexer.indexDocuments(docs, invertedIndex, nonInvertedIndex, termRepertory);
-        calculateIdfAndNorms();
-    }
-
-    public RetrievalSystem(Collection<InformationElement> queries, Collection<InformationElement> docs) {
-        this(docs);
-        this.setQueries(queries);
-    }
+    public RetrievalSystem(){}
 
     public void setStamming(boolean isStamming){
         this.indexer.setStamming(isStamming);
@@ -45,6 +36,12 @@ public class RetrievalSystem {
         Collection<InformationElement> col = new ArrayList<InformationElement>();
         col.add(query);
         setQueries(col);
+    }
+
+    public void setDocs(Collection<InformationElement> docs) {
+        this.docs = docs;
+        indexer.indexDocuments(docs, invertedIndex, nonInvertedIndex, termRepertory);
+        calculateIdfAndNorms();
     }
 
     public Result getResult(){

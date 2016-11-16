@@ -21,8 +21,10 @@ public class SuggestionService {
     private HashMap<String, InformationElement> namesMap = new HashMap<>();
 
     @Inject
-    public SuggestionService(ProductDao productDao) {
+    public SuggestionService(ProductDao productDao, RetrievalSystem rsDescriptions, RetrievalSystem rsNames) {
         this.productDao = productDao;
+        this.rsDescriptions = rsDescriptions;
+        this.rsNames = rsNames;
         init();
     }
 
@@ -44,9 +46,9 @@ public class SuggestionService {
             namesMap.put(product.getId(), name);
         }
 
-        this.rsDescriptions.setStamming(true);
-        this.rsDescriptions = new RetrievalSystem(productDescriptions);
-        this.rsNames = new RetrievalSystem(productNames);
+        this.rsDescriptions.setStamming(false);
+        this.rsDescriptions.setDocs(productDescriptions);
+        this.rsNames.setDocs(productNames);
     }
 
     public Product getBestSuggestion(String queryText){
