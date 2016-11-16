@@ -1,0 +1,139 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "children": [
+            "c070f44d-48e6-4bb1-a217-1268ac3b283a",
+            "bf67755c-1339-4bac-ae0c-ec2440f8bc81"
+        ],
+        "decorators": []
+    },
+    "meta": {
+        "version": 1
+    },
+    "bf67755c-1339-4bac-ae0c-ec2440f8bc81": {
+        "id": "bf67755c-1339-4bac-ae0c-ec2440f8bc81",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "b7f73b80-fe3d-42c0-b36d-d93ae76686b6",
+            "4752f105-058f-4965-9e91-e8ebd663eff2",
+            "af21dfe9-bddf-4eed-960e-f0966397472d",
+            "b44ea069-e96a-45c0-9978-def2747ed6b0"
+        ],
+        "decorators": []
+    },
+    "4752f105-058f-4965-9e91-e8ebd663eff2": {
+        "id": "4752f105-058f-4965-9e91-e8ebd663eff2",
+        "class": "Blink",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "bf67755c-1339-4bac-ae0c-ec2440f8bc81"
+    },
+    "af21dfe9-bddf-4eed-960e-f0966397472d": {
+        "id": "af21dfe9-bddf-4eed-960e-f0966397472d",
+        "class": "TimeoutJs",
+        "name": "Pause for a bit",
+        "asset-pack": "core",
+        "parent": "bf67755c-1339-4bac-ae0c-ec2440f8bc81",
+        "options": {
+            "getTime": [
+                "() => {",
+                "   return Math.floor((Math.random() * 4000) + 500);",
+                "}"
+            ]
+        }
+    },
+    "b44ea069-e96a-45c0-9978-def2747ed6b0": {
+        "id": "b44ea069-e96a-45c0-9978-def2747ed6b0",
+        "class": "LookAt",
+        "name": "Choose place to look",
+        "asset-pack": "core",
+        "parent": "bf67755c-1339-4bac-ae0c-ec2440f8bc81",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "\tlet x = 0;",
+                "\tlet y = 360;",
+                "\tlet z = 0;",
+                "\t// let y = (1 - 2 * Math.random());",
+                "\t// let z = 0.1 + 0.2 * (1 - 2 * Math.random());",
+                "\treturn {x: x, y: y, z: z};",
+                "}"
+            ]
+        },
+        "skipped": true
+    },
+    "b7f73b80-fe3d-42c0-b36d-d93ae76686b6": {
+        "id": "b7f73b80-fe3d-42c0-b36d-d93ae76686b6",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  var animate = require(\"jibo\").animate;",
+                "  ",
+                "  var target = new animate.THREE.Vector3(180.0, 0.0, 0.0);  // target position to look at",
+                "  ",
+                "  var builder = animate.createLookatBuilder();",
+                "  builder.startLookat(target);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf67755c-1339-4bac-ae0c-ec2440f8bc81",
+        "skipped": true
+    },
+    "c070f44d-48e6-4bb1-a217-1268ac3b283a": {
+        "id": "c070f44d-48e6-4bb1-a217-1268ac3b283a",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "13afd3b3-bfb5-40ad-aa12-d9856a6d58d6",
+            "25c7bd9e-17c8-4948-ac7c-6685fd053fec"
+        ],
+        "decorators": [],
+        "skipped": true
+    },
+    "25c7bd9e-17c8-4948-ac7c-6685fd053fec": {
+        "id": "25c7bd9e-17c8-4948-ac7c-6685fd053fec",
+        "class": "TimeoutJs",
+        "name": "Pause for a bit",
+        "asset-pack": "core",
+        "parent": "c070f44d-48e6-4bb1-a217-1268ac3b283a",
+        "options": {
+            "getTime": [
+                "() => {",
+                "   return Math.floor((Math.random() * 4000) + 500);",
+                "}"
+            ]
+        }
+    },
+    "13afd3b3-bfb5-40ad-aa12-d9856a6d58d6": {
+        "id": "13afd3b3-bfb5-40ad-aa12-d9856a6d58d6",
+        "class": "PlayAnimation",
+        "name": "",
+        "options": {
+            "animPath": "listen.keys",
+            "config": [
+                "(animation) => {",
+                "  console.log(\"i'm moving my head while listening\")",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "c070f44d-48e6-4bb1-a217-1268ac3b283a"
+    }
+}

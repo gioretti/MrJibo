@@ -1,0 +1,100 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "c95a9115-cf00-482c-82c5-a0e93c0c4ea7",
+            "562ea311-a29a-4f3d-ac4e-43b13369e172",
+            "bbe90390-9254-40f4-8f93-53b5aff378ba",
+            "e98ba03d-8d4f-4d2c-a0fa-7503c6a96109"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "c95a9115-cf00-482c-82c5-a0e93c0c4ea7": {
+        "id": "c95a9115-cf00-482c-82c5-a0e93c0c4ea7",
+        "class": "ExecuteScript",
+        "name": "calculateTotal",
+        "options": {
+            "exec": [
+                "() => {",
+                "    notepad.totalPrice = 0;",
+                "    notepad.shoppingCart.forEach( item => {",
+                "        notepad.totalPrice = notepad.totalPrice + item.quantity * item.price;",
+                "    });",
+                "    console.log(\"Total Price: \"  + notepad.totalPrice);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "bbe90390-9254-40f4-8f93-53b5aff378ba": {
+        "id": "bbe90390-9254-40f4-8f93-53b5aff378ba",
+        "class": "ExecuteScript",
+        "name": "show Total",
+        "options": {
+            "exec": [
+                "() => {",
+                "",
+                "let textToDisplay =  \"<p>\" +  notepad.totalPrice  + \" CHF</p>\";",
+                "",
+                "let priceDiv = document.createElement('div');",
+                "priceDiv.setAttribute(\"id\",\"price\")",
+                "",
+                "let jiboFace = document.getElementById(\"face\");",
+                "document.body.insertBefore(priceDiv, jiboFace); ",
+                "document.getElementById(\"price\").innerHTML = textToDisplay;",
+                "    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "562ea311-a29a-4f3d-ac4e-43b13369e172": {
+        "id": "562ea311-a29a-4f3d-ac4e-43b13369e172",
+        "class": "TextToSpeechJs",
+        "name": "tell the total",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "        callback('It\\'s ' + notepad.totalPrice + ' Francs please');",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "e98ba03d-8d4f-4d2c-a0fa-7503c6a96109": {
+        "id": "e98ba03d-8d4f-4d2c-a0fa-7503c6a96109",
+        "class": "TextToSpeechJs",
+        "name": "(dummy) Wait and hide price",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    setTimeout(() => {",
+                "        let priceDiv = document.getElementById(\"price\");",
+                "        if(priceDiv){ ",
+                "            priceDiv.parentNode.removeChild(priceDiv); ",
+                "        }",
+                "        callback('Thank you!');",
+                "    }, 5000);",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    }
+}

@@ -1,0 +1,501 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+            "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
+            "03faf3fd-a12e-4653-ba52-5ee7f36b36fc"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "93cdadd8-0d5d-4075-9dfb-070d212769aa": {
+        "id": "93cdadd8-0d5d-4075-9dfb-070d212769aa",
+        "class": "TextToSpeechJs",
+        "name": "show result & ask confirmation",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    ",
+                "    let speech;",
+                "    if( notepad.hasProduct ) {",
+                "        let productName = notepad.results[0].name;",
+                "        speech = \"I've found \" + productName + \" is it good? \";",
+                "    } else {",
+                "        speech = \"I'm sorry, I don't have this product\";",
+                "    }",
+                "    ",
+                "    callback(speech);",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "e711ce2f-2090-49c8-90e9-8f34d23f3a6f"
+    },
+    "49feba96-0f33-4def-9bc7-d24887288145": {
+        "id": "49feba96-0f33-4def-9bc7-d24887288145",
+        "class": "ListenJs",
+        "name": "result is good or not?",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "getRule": [
+                "(callback) => {",
+                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl};\");",
+                "}"
+            ],
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        notepad.confirmed = asrResult.NLParse.confirmed;",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83"
+    },
+    "96f108e2-a489-423b-9460-d99d2852757a": {
+        "id": "96f108e2-a489-423b-9460-d99d2852757a",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83",
+        "children": [
+            "0f04fb38-8527-452d-9549-13973872b25d",
+            "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+        ]
+    },
+    "0f04fb38-8527-452d-9549-13973872b25d": {
+        "id": "0f04fb38-8527-452d-9549-13973872b25d",
+        "class": "Sequence",
+        "name": "order confirmed",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "96f108e2-a489-423b-9460-d99d2852757a",
+        "children": [
+            "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
+            "2634f28b-bbd4-4fa7-9ab8-07d28031318c"
+        ],
+        "decorators": [
+            "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa"
+        ]
+    },
+    "2634f28b-bbd4-4fa7-9ab8-07d28031318c": {
+        "id": "2634f28b-bbd4-4fa7-9ab8-07d28031318c",
+        "class": "TextToSpeech",
+        "name": "(dummy) add item to chart",
+        "options": {
+            "words": "I'll add the product in your cart then.",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
+    },
+    "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa": {
+        "id": "1ce19616-a8b1-4ee0-8ccb-f7b3d894cbfa",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return notepad.confirmed == 'yes';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60": {
+        "id": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60",
+        "class": "Sequence",
+        "name": "order invalidated",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "96f108e2-a489-423b-9460-d99d2852757a",
+        "children": [
+            "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4"
+        ],
+        "decorators": [
+            "30670bb3-0bbd-4a49-a697-8010ce3b59d6"
+        ]
+    },
+    "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4": {
+        "id": "2d3503b4-b7e3-4f07-98c8-3cb876e66fd4",
+        "class": "TextToSpeech",
+        "name": "apologize",
+        "options": {
+            "words": "I am sorry if I did an error.",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "2f7af41f-e9e8-49ad-ad23-c7836d4dcb60"
+    },
+    "30670bb3-0bbd-4a49-a697-8010ce3b59d6": {
+        "id": "30670bb3-0bbd-4a49-a697-8010ce3b59d6",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return notepad.confirmed == 'no';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "03faf3fd-a12e-4653-ba52-5ee7f36b36fc": {
+        "id": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
+        "class": "Switch",
+        "name": "CONFIRMATION",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "7555e076-a5da-4e65-b1b9-cb9e9fc06b83"
+        ]
+    },
+    "7555e076-a5da-4e65-b1b9-cb9e9fc06b83": {
+        "id": "7555e076-a5da-4e65-b1b9-cb9e9fc06b83",
+        "class": "Sequence",
+        "name": "go on if there are results",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "03faf3fd-a12e-4653-ba52-5ee7f36b36fc",
+        "children": [
+            "49feba96-0f33-4def-9bc7-d24887288145",
+            "96f108e2-a489-423b-9460-d99d2852757a"
+        ],
+        "decorators": [
+            "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe"
+        ]
+    },
+    "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe": {
+        "id": "8c09a846-cbd6-4ffa-8dbe-916fb397e9fe",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    console.log(\"------------------------------------------------------------------\");",
+                "    return ( notepad.hasProduct );",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "34bafbc4-ceec-405d-814a-7e22d53ac2b2": {
+        "id": "34bafbc4-ceec-405d-814a-7e22d53ac2b2",
+        "class": "OrderEnquiring",
+        "name": "query the assistant",
+        "options": {
+            "assistantURL": "http://localhost:9000",
+            "getKeywords": [
+                "() => { ",
+                "    return notepad.query; ",
+                "}"
+            ],
+            "onResult": [
+                "(results) => { ",
+                "    console.log(\"Results of order Enquiring\");",
+                "    console.log(results);",
+                "    notepad.results = results; ",
+                "    notepad.hasProduct = (results != undefined && results.length > 0);",
+                "}"
+            ]
+        },
+        "asset-pack": "project",
+        "parent": "b840e893-f021-4c01-8922-705fc748198e"
+    },
+    "e711ce2f-2090-49c8-90e9-8f34d23f3a6f": {
+        "id": "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
+        "class": "Parallel",
+        "name": "FOUND OR NOT FOUND",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "3a0dfbc2-3f2d-4503-aed9-503b35c292eb",
+            "93cdadd8-0d5d-4075-9dfb-070d212769aa"
+        ]
+    },
+    "f5ad6c8c-d9cb-4493-8f9b-2a4bfdc33772": {
+        "id": "f5ad6c8c-d9cb-4493-8f9b-2a4bfdc33772",
+        "class": "Subtree",
+        "name": "found Animation",
+        "options": {
+            "behaviorPath": "foundProduct.bt",
+            "getNotepad": [
+                "() => {",
+                "  console.log(\"animation found product\")",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "3a0dfbc2-3f2d-4503-aed9-503b35c292eb",
+        "decorators": [
+            "d4521954-6a4f-4fb1-b614-392d129d77d7"
+        ]
+    },
+    "3a0dfbc2-3f2d-4503-aed9-503b35c292eb": {
+        "id": "3a0dfbc2-3f2d-4503-aed9-503b35c292eb",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
+        "children": [
+            "8a57ee8f-68e8-4047-96e9-8dc61e8ebdb0",
+            "f5ad6c8c-d9cb-4493-8f9b-2a4bfdc33772"
+        ]
+    },
+    "d4521954-6a4f-4fb1-b614-392d129d77d7": {
+        "id": "d4521954-6a4f-4fb1-b614-392d129d77d7",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    console.log(\"------------------------------------------------check stuff notfoudn\");",
+                "  return ( notepad.hasProduct )",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "8a57ee8f-68e8-4047-96e9-8dc61e8ebdb0": {
+        "id": "8a57ee8f-68e8-4047-96e9-8dc61e8ebdb0",
+        "class": "Subtree",
+        "name": "notFound Animation",
+        "options": {
+            "behaviorPath": "notFoundProduct.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "3a0dfbc2-3f2d-4503-aed9-503b35c292eb",
+        "decorators": [
+            "cd976248-8740-430b-9259-aba1e2c5dd90"
+        ]
+    },
+    "cd976248-8740-430b-9259-aba1e2c5dd90": {
+        "id": "cd976248-8740-430b-9259-aba1e2c5dd90",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  console.log(\"------------------------------------------------check stuff notfoudn\");",
+                "  return ( !notepad.hasProduct )",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "b840e893-f021-4c01-8922-705fc748198e": {
+        "id": "b840e893-f021-4c01-8922-705fc748198e",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+        "children": [
+            "ab4fba4e-338c-47c0-8250-24dee4684060",
+            "34bafbc4-ceec-405d-814a-7e22d53ac2b2"
+        ]
+    },
+    "ab4fba4e-338c-47c0-8250-24dee4684060": {
+        "id": "ab4fba4e-338c-47c0-8250-24dee4684060",
+        "class": "PlayAnimation",
+        "name": "think",
+        "options": {
+            "animPath": "thinking.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "b840e893-f021-4c01-8922-705fc748198e"
+    },
+    "3b7ce613-5a19-4d7b-97fe-b46d64b18b29": {
+        "id": "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
+        "class": "ExecuteScript",
+        "name": "Save product as result",
+        "options": {
+            "exec": [
+                "() => {",
+                "    result.product = notepad.results[0];",
+                "    result.product.quantity = notepad.quantity;",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0f04fb38-8527-452d-9549-13973872b25d"
+    },
+    "b45f74e5-dc07-4b09-897a-a619185d5b09": {
+        "id": "b45f74e5-dc07-4b09-897a-a619185d5b09",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+        "children": [
+            "c655e1ae-499b-4bf9-9034-364cb810117e"
+        ],
+        "decorators": []
+    },
+    "0d1d40b6-3157-4952-bbdf-937b93c4656f": {
+        "id": "0d1d40b6-3157-4952-bbdf-937b93c4656f",
+        "class": "TextToSpeechJs",
+        "name": "ask for more keywords",
+        "options": {
+            "getWords": [
+                "(callback) => {",
+                "    callback(\"I've found \" + ",
+                "            notepad.results.length + ",
+                "            \" products for what you've asked. Please give me a bit more information.\");",
+                "}"
+            ],
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "c655e1ae-499b-4bf9-9034-364cb810117e"
+    },
+    "0d297fe3-94a4-45db-9c1c-a5e94cd738f3": {
+        "id": "0d297fe3-94a4-45db-9c1c-a5e94cd738f3",
+        "class": "Listen",
+        "name": "listem for keywords",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: false,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "keywords.rule",
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        let newKeywords = asrResult.NLParse.keywords;",
+                "        notepad.query += \" \" + newKeywords;",
+                "        console.log(\"new Query is: \" + notepad.query);",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "c655e1ae-499b-4bf9-9034-364cb810117e"
+    },
+    "0f9ff152-28f3-4745-a7c5-0705a308b1d2": {
+        "id": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
+        "class": "Sequence",
+        "name": "Search for right product",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "b840e893-f021-4c01-8922-705fc748198e",
+            "b45f74e5-dc07-4b09-897a-a619185d5b09"
+        ],
+        "decorators": [
+            "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26"
+        ]
+    },
+    "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26": {
+        "id": "f4c2a311-652d-4ae7-b4e9-ef9c711a7d26",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    let hasTooManyProducts = notepad.results != undefined && notepad.results.length > 1;",
+                "    console.log(\"----------------------------------------------------------WHILE CONDITIONAL\");",
+                "    return ( hasTooManyProducts );",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "c655e1ae-499b-4bf9-9034-364cb810117e": {
+        "id": "c655e1ae-499b-4bf9-9034-364cb810117e",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "b45f74e5-dc07-4b09-897a-a619185d5b09",
+        "children": [
+            "0d1d40b6-3157-4952-bbdf-937b93c4656f",
+            "0d297fe3-94a4-45db-9c1c-a5e94cd738f3"
+        ],
+        "decorators": [
+            "148b4cc2-d3b1-4c61-8974-aafbda625922"
+        ]
+    },
+    "148b4cc2-d3b1-4c61-8974-aafbda625922": {
+        "id": "148b4cc2-d3b1-4c61-8974-aafbda625922",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    // true if there is many possible products have been found",
+                "    return notepad.hasProduct && notepad.results.length > 1;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    }
+}

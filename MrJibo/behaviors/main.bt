@@ -1,0 +1,499 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "Infinite loop",
+        "asset-pack": "core",
+        "children": [
+            "94c108e0-aada-455f-9486-b79a4e7d7a74",
+            "0534b8a9-1ec4-4edc-b455-79cee77cc543",
+            "47703041-64a3-432f-91a1-cf6614a44a29",
+            "13e49aee-bd12-474c-8002-36f211cd801b"
+        ],
+        "decorators": [
+            "7b83db44-861e-4649-9c43-60ade5a39447"
+        ],
+        "options": {}
+    },
+    "meta": {
+        "version": 1
+    },
+    "3d4808c6-1033-402f-82fe-828c2d957233": {
+        "id": "3d4808c6-1033-402f-82fe-828c2d957233",
+        "class": "Subtree",
+        "name": "idle",
+        "options": {
+            "behaviorPath": "idle.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
+        "decorators": [
+            "acdedc87-6a25-4cea-8551-ae36c15e4200",
+            "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6"
+        ]
+    },
+    "5d7cbccc-b793-4054-bd62-3267120870ee": {
+        "id": "5d7cbccc-b793-4054-bd62-3267120870ee",
+        "class": "Listen",
+        "name": "Listen the costumer",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: false,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "rule": "dialogue.rule",
+            "onResult": [
+                "(listener) => {",
+                "  ",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        ",
+                "        console.log(\"listen on the cloud...\");",
+                "        notepad.action = asrResult.NLParse.action;",
+                "        notepad.results = asrResult.NLParse;",
+                "        console.log(\"What I've understood: \" ",
+                "                    + notepad.action);",
+                "        if(notepad.isBusy){ emitter.emit('engageJibo'); }",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29"
+    },
+    "13e49aee-bd12-474c-8002-36f211cd801b": {
+        "id": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+            "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+        ],
+        "decorators": []
+    },
+    "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a": {
+        "id": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a",
+        "class": "Sequence",
+        "name": "endDialogue",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "decorators": [
+            "dba041f8-c66e-4f31-83c7-bdfdae20b6e5"
+        ],
+        "children": [
+            "29ccec1e-1f04-4bfa-9e91-442cc523723e",
+            "4391c54e-d1f8-43d4-9a69-ea068ccf147d"
+        ]
+    },
+    "dba041f8-c66e-4f31-83c7-bdfdae20b6e5": {
+        "id": "dba041f8-c66e-4f31-83c7-bdfdae20b6e5",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  let action = notepad.action;",
+                "  console.log(action);",
+                "  if ( action !== undefined && action == \"endDialogue\" ) {",
+                "      console.log(\"I end a dialogue\");",
+                "      return true;",
+                "  } else {",
+                "      return false;",
+                "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "29ccec1e-1f04-4bfa-9e91-442cc523723e": {
+        "id": "29ccec1e-1f04-4bfa-9e91-442cc523723e",
+        "class": "TextToSpeech",
+        "name": "say bye",
+        "options": {
+            "words": "Bye!",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+    },
+    "94c108e0-aada-455f-9486-b79a4e7d7a74": {
+        "id": "94c108e0-aada-455f-9486-b79a4e7d7a74",
+        "class": "ExecuteScript",
+        "name": "Init Jibo",
+        "options": {
+            "exec": [
+                "() => {",
+                "  ",
+                "  console.log(\"new loop... \");",
+                "  ",
+                "  if( !notepad.isInitialized ) {",
+                "      console.log(\"Initializing Jibo...\");",
+                "      notepad.action = \"\";",
+                "      notepad.results = {};",
+                "      notepad.isEngaged = false;",
+                "      notepad.shoppingCart = [];",
+                "      notepad.isInitialized = true;",
+                "  }",
+                "  ",
+                "  console.log(\"Items in shopping cart:\");",
+                "  console.log(notepad.shoppingCart);",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "4391c54e-d1f8-43d4-9a69-ea068ccf147d": {
+        "id": "4391c54e-d1f8-43d4-9a69-ea068ccf147d",
+        "class": "ExecuteScript",
+        "name": "Disengage Jibo",
+        "options": {
+            "exec": [
+                "() => {",
+                "  notepad.isEngaged = false;",
+                "  notepad.shoppingCart = [];",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
+    },
+    "7b83db44-861e-4649-9c43-60ade5a39447": {
+        "id": "7b83db44-861e-4649-9c43-60ade5a39447",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0": {
+        "id": "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "\tlet jibo = require('jibo');\t",
+                "\tlet entity = jibo.lps.getClosestVisualEntity();",
+                "\t",
+                "\t// x is meters forward, y is meters left, and z is meters up",
+                "  let nDefaultPosition = {x: 0.1, y: 0, z: 0.285}; // emulates initial \"center\"",
+                "  let position = nDefaultPosition;",
+                "",
+                "\tif (entity && entity.parts.length > 0) {",
+                "\t\tlet raysData = entity.parts[0].value.rays;",
+                "\t\tif (raysData !== undefined && raysData.length > 0) {",
+                "\t\t\tlet origin = entity.parts[0].value.rays[0].origin;",
+                "\t\t\tlet dir = entity.parts[0].value.rays[0].dir;",
+                "\t\t\tposition\t= {x: dir.x + origin.x, y:dir.y + origin.y, z: dir.z + origin.z};",
+                "\t\t}",
+                "\t}",
+                "\treturn position;",
+                "}"
+            ],
+            "isContinuous": true,
+            "config": [
+                "(lookAt) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "decorators": []
+    },
+    "f7dad3fc-ae51-499c-a339-467928d26c83": {
+        "id": "f7dad3fc-ae51-499c-a339-467928d26c83",
+        "class": "Subtree",
+        "name": "takeOrder",
+        "options": {
+            "behaviorPath": "takeOrder",
+            "getNotepad": [
+                "() => {",
+                "",
+                "    let Text2Number = require('./../src/utilities/Text2Number');",
+                "    let quantity = notepad.results.quantity;",
+                "    ",
+                "    if(isNaN(quantity)){",
+                "        quantity = Text2Number(quantity);",
+                "    }",
+                "    ",
+                "    let subtreeNotepad = {};",
+                "    subtreeNotepad.query = notepad.results.product;",
+                "    subtreeNotepad.quantity = quantity;",
+                "        ",
+                "    return subtreeNotepad;",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "    if(treeResult.product != undefined) {",
+                "        notepad.shoppingCart.push(treeResult.product);",
+                "    }",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "decorators": []
+    },
+    "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6": {
+        "id": "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6",
+        "class": "SucceedOnEmbedded",
+        "name": "",
+        "options": {
+            "rule": "hey_jibo",
+            "onResult": [
+                "(listener) => {",
+                "\tlistener.on('hey-jibo', function(asrResult, speakerIds) {",
+                "        notepad.isEngaged = true;",
+                "\t});",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "0534b8a9-1ec4-4edc-b455-79cee77cc543": {
+        "id": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "3d4808c6-1033-402f-82fe-828c2d957233"
+        ]
+    },
+    "acdedc87-6a25-4cea-8551-ae36c15e4200": {
+        "id": "acdedc87-6a25-4cea-8551-ae36c15e4200",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    return !notepad.isEngaged;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "47703041-64a3-432f-91a1-cf6614a44a29": {
+        "id": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": true
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
+            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
+            "5d7cbccc-b793-4054-bd62-3267120870ee"
+        ]
+    },
+    "cf2b8e83-a988-4caf-9c79-cdc336a76b6b": {
+        "id": "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
+        "class": "Subtree",
+        "name": "listen easy",
+        "options": {
+            "behaviorPath": "listen.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
+        "skipped": false,
+        "decorators": [
+            "98b091af-77ab-4af8-af7e-b9653861c759"
+        ]
+    },
+    "98b091af-77ab-4af8-af7e-b9653861c759": {
+        "id": "98b091af-77ab-4af8-af7e-b9653861c759",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "bf0ebe7b-7562-4f9f-8d22-39cf50830a29": {
+        "id": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "13e49aee-bd12-474c-8002-36f211cd801b",
+        "children": [
+            "f7dad3fc-ae51-499c-a339-467928d26c83",
+            "746ef968-f32f-4212-b68e-fbd62cd5beb3",
+            "0cd69c3e-f90e-43e2-9681-8f7580f6d10b",
+            "30960c7c-d8f0-4100-a2a7-2289f6304363"
+        ],
+        "decorators": [
+            "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a"
+        ]
+    },
+    "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a": {
+        "id": "9448bbfb-54c0-4d5a-b0ce-861b5005fd4a",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "  let action = notepad.action;",
+                "  console.log(action);",
+                "  if ( action !== undefined && action == \"takeOrder\" ) {",
+                "      console.log(\"I take a Order\");",
+                "      return true;",
+                "  } else {",
+                "      return false;",
+                "  }",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "746ef968-f32f-4212-b68e-fbd62cd5beb3": {
+        "id": "746ef968-f32f-4212-b68e-fbd62cd5beb3",
+        "class": "TextToSpeech",
+        "name": "something else?",
+        "options": {
+            "words": "Can I do something else for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29"
+    },
+    "0cd69c3e-f90e-43e2-9681-8f7580f6d10b": {
+        "id": "0cd69c3e-f90e-43e2-9681-8f7580f6d10b",
+        "class": "ListenJs",
+        "name": "listen for: yes or no",
+        "options": {
+            "getOptions": [
+                "() => {",
+                "    let options = {",
+                "        heyJibo: false,",
+                "        detectEnd: true,",
+                "        incremental: false,",
+                "        authenticateSpeaker: ''",
+                "    }",
+                "    return options;",
+                "}"
+            ],
+            "getRule": [
+                "(callback) => {",
+                "    callback(\"TopRule = $factory:yes_no{confirmed = yes_no._nl} | $* {confirmed = 'yes'};\");",
+                "}"
+            ],
+            "onResult": [
+                "(listener) => {",
+                "    listener.on('cloud', function(asrResult, speakerIds) {",
+                "        notepad.someThingElse = asrResult.NLParse.confirmed;",
+                "    });",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29"
+    },
+    "228ae9cd-dd49-48e1-8532-3dbdd3b83790": {
+        "id": "228ae9cd-dd49-48e1-8532-3dbdd3b83790",
+        "class": "Subtree",
+        "name": "checkout & empty shopping cart",
+        "options": {
+            "behaviorPath": "checkout.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {",
+                "        shoppingCart : notepad.shoppingCart",
+                "    };",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "      notepad.shoppingCart = [];",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "30960c7c-d8f0-4100-a2a7-2289f6304363",
+        "decorators": [
+            "406ff11f-5854-4428-9002-ca312b7a6a0d"
+        ]
+    },
+    "30960c7c-d8f0-4100-a2a7-2289f6304363": {
+        "id": "30960c7c-d8f0-4100-a2a7-2289f6304363",
+        "class": "Switch",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
+        "children": [
+            "228ae9cd-dd49-48e1-8532-3dbdd3b83790"
+        ]
+    },
+    "406ff11f-5854-4428-9002-ca312b7a6a0d": {
+        "id": "406ff11f-5854-4428-9002-ca312b7a6a0d",
+        "class": "Case",
+        "name": "",
+        "options": {
+            "conditional": [
+                "() => {",
+                "    console.log(\"Checkout? -> \" + notepad.someThingElse);",
+                "    return notepad.someThingElse == 'no';",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    }
+}

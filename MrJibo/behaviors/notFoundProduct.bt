@@ -1,0 +1,52 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "2557adf1-a629-41fd-ae9b-b28bdf8905cd"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "2557adf1-a629-41fd-ae9b-b28bdf8905cd": {
+        "id": "2557adf1-a629-41fd-ae9b-b28bdf8905cd",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "f638e4aa-3f2b-4897-b559-6e4ffa72d882",
+            "adfa5f1c-5056-4fe2-bccc-eca6d0719f3f"
+        ]
+    },
+    "adfa5f1c-5056-4fe2-bccc-eca6d0719f3f": {
+        "id": "adfa5f1c-5056-4fe2-bccc-eca6d0719f3f",
+        "class": "PlayAnimation",
+        "name": "",
+        "options": {
+            "animPath": "sad.keys",
+            "config": [
+                "(animation) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "2557adf1-a629-41fd-ae9b-b28bdf8905cd"
+    },
+    "f638e4aa-3f2b-4897-b559-6e4ffa72d882": {
+        "id": "f638e4aa-3f2b-4897-b559-6e4ffa72d882",
+        "class": "PlayAudio",
+        "name": "",
+        "options": {
+            "audioPath": "FX_ImBroken_01.mp3"
+        },
+        "asset-pack": "core",
+        "parent": "2557adf1-a629-41fd-ae9b-b28bdf8905cd"
+    }
+}

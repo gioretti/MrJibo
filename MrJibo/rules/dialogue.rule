@@ -1,0 +1,43 @@
+TopRule =
+    $*
+    (
+        $order
+            {action = 'takeOrder'}
+            {product = order._product}
+            {quantity = order._quantity}
+        |
+        $goodbye
+            {action='endDialogue'}
+    )
+    $*
+;
+
+order = $*
+        $quantity {_quantity = quantity._value}
+        $product {_product = product._product}
+        ?(please)
+        ;
+
+quantity =  (a couple) { _value = '2' }
+                |
+            (a) { _value = '1' }
+                |
+            (the) { _value = '1' }
+                |
+            $number {_value = number._value}
+;
+
+number @=
+     [+$digit] {_value = _parsed} |
+     (+$digitWord) {_value = _parsed};
+
+digit [(1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0)];
+digitWord =
+        (zero | one | two | three | four | five | six | seven | eight | nine |
+          then | eleven | twelve  |  thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen |
+          twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety |
+          hundred  | thousand | million | billion | trillion | quadrillion | quintillion | sextillion | septillion | octillion | nonillion | decillion);
+
+product @= (+$w){_product = _parsed};
+
+goodbye = (good bye) | goodbye | bye;
