@@ -24,6 +24,8 @@ quantity =  (a couple) { _value = '2' }
                 |
             (the) { _value = '1' }
                 |
+            (something) { _value = '1' }
+                |
             $number {_value = number._value}
 ;
 
