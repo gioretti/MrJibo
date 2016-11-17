@@ -19,12 +19,14 @@ public class SuggestionService {
     private RetrievalSystem rsNames;
     private HashMap<String, InformationElement> descriptionsMap = new HashMap<>();
     private HashMap<String, InformationElement> namesMap = new HashMap<>();
+    private InformationElement currentQuery;
 
     @Inject
     public SuggestionService(ProductDao productDao, RetrievalSystem rsDescriptions, RetrievalSystem rsNames) {
         this.productDao = productDao;
         this.rsDescriptions = rsDescriptions;
         this.rsNames = rsNames;
+
         init();
     }
 
@@ -51,21 +53,21 @@ public class SuggestionService {
         this.rsNames.setDocs(productNames);
     }
 
-    public Product getBestSuggestion(String queryText){
-        return getBestSuggestion(queryText, 1).get(0);
+    public void setQuery(String queryText){
+        this.currentQuery = new InformationElement("1", queryText);
     }
 
-    public List<Product> getBestSuggestion(String queryText, int maxResults){
-        InformationElement query = new InformationElement("1", queryText);
-        processQuery(query);
-        Result result = getQueryResult(query);
+    public List<Product> getBestSuggestion(){
+
+        processQuery();
+
+        Result result = getQueryResult();
         if( result == null ) {
             return null;
         }
         result.printResults(100);   // for debugging purpose
-        List<InformationElement> resultsRangList = relevanceFilter(result,
-                                                                    result.getBestResults(query, maxResults),
-                                                                    query );
+        List<InformationElement> resultsRangList = relevanceFilter(result);
+
         List<Product> suggestedProducts = new ArrayList<>();
         for(InformationElement element : resultsRangList){
             Product p = productDao.findById(element.getId());
@@ -75,9 +77,9 @@ public class SuggestionService {
     }
 
     // filter results that are not enough relevant compared to the best result.
-    private List<InformationElement> relevanceFilter(Result result, List<InformationElement> rangList, InformationElement query){
-
-        HashMap<InformationElement, Double> resultMap =  result.get(query);
+    private List<InformationElement> relevanceFilter(Result result){
+        List<InformationElement> rangList = result.getBestResults(this.currentQuery, 100);
+        HashMap<InformationElement, Double> resultMap =  result.get(this.currentQuery);
         Double bestValue = resultMap.get(rangList.get(0));
 
         List<InformationElement> filteredRangList = new ArrayList<>();
@@ -101,23 +103,23 @@ public class SuggestionService {
         return (result != null) && result.size() > 0;
     }
 
-    private Result getQueryResult(InformationElement query){
+    private Result getQueryResult(){
         Result result = null;
-        if( hasNameResults(query) && hasDescriptionResults(query)) {
+        if( hasNameResults(this.currentQuery) && hasDescriptionResults(this.currentQuery)) {
             result = new Result();
-            result.put(query, mergeResults(query));
-        } else if (hasNameResults(query)) {
+            result.put(this.currentQuery, mergeResults(this.currentQuery));
+        } else if (hasNameResults(this.currentQuery)) {
             result = rsNames.getResult();
-        } else if (hasDescriptionResults(query)){
-            result = rsNames.getResult();
+        } else if (hasDescriptionResults(this.currentQuery)){
+            result = rsDescriptions.getResult();
         }
         return result;
     }
 
-    private void processQuery(InformationElement query){
-        rsDescriptions.setQueries(query);
+    private void processQuery(){
+        rsDescriptions.setQueries(this.currentQuery);
         rsDescriptions.processQueries();
-        rsNames.setQueries(query);
+        rsNames.setQueries(this.currentQuery);
         rsNames.processQueries();
     }
 
