@@ -1,0 +1,70 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
+            "b38e01e7-fb05-472a-b5ca-592d38a0d1f1"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "b38e01e7-fb05-472a-b5ca-592d38a0d1f1": {
+        "id": "b38e01e7-fb05-472a-b5ca-592d38a0d1f1",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "  ",
+                "  let currentTime = jibo.animate.getClock().currentTime();",
+                "  let timeElapsed = currentTime.subtract(notepad.startTime);",
+                "  console.log(\"current\" + currentTime);",
+                "  console.log(\"elapsed\" + timeElapsed);",
+                "  ",
+                "  ",
+                "  if (timeElapsed % 6 < 3) {",
+                "    return {x: 1, y: 1, z: 1};",
+                "  }",
+                "  else {",
+                "    return {x: 0, y: 0, z: 0};    ",
+                "  }",
+                "}"
+            ],
+            "isContinuous": true,
+            "config": [
+                "(lookAt) => {",
+                "  ",
+                "  let dofs = jibo.animate.dofs;",
+                "  lookAt.setDOFs(dofs.EYE);",
+                "  ",
+                "  ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f": {
+        "id": "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {    ",
+                "    console.log(\"loop animate \");",
+                "    ",
+                "    if( !notepad.isInitialized ) {",
+                "        console.log(\"Initializing Jibo...\");",
+                "        notepad.startTime = jibo.animate.getClock().currentTime();",
+                "    }    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    }
+}

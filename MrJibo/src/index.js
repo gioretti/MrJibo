@@ -11,7 +11,7 @@ jibo.init('face', function(err) {
 
     // Load and create the behavior tree
     //let root = jibo.bt.create('../behaviors/main');
-    let root = jibo.bt.create('../behaviors/main');
+    let root = jibo.bt.create('../behaviors/socialAnimationLookAt.bt');
     root.start();
 
     // Listen for the jibo main update loop
