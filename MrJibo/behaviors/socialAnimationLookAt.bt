@@ -6,6 +6,7 @@
         "options": {},
         "children": [
             "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
+            "0ae0908b-7850-4e26-a19a-a38c9661631b",
             "b38e01e7-fb05-472a-b5ca-592d38a0d1f1"
         ]
     },
@@ -27,7 +28,7 @@
                 "  ",
                 "  ",
                 "  if (timeElapsed % 6 < 3) {",
-                "    return {x: 1, y: 1, z: 1};",
+                "    return {x: 2, y: 2, z: 2};",
                 "  }",
                 "  else {",
                 "    return {x: 0, y: 0, z: 0};    ",
@@ -46,7 +47,8 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": 1,
+        "skipped": true
     },
     "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f": {
         "id": "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
@@ -61,6 +63,40 @@
                 "        console.log(\"Initializing Jibo...\");",
                 "        notepad.startTime = jibo.animate.getClock().currentTime();",
                 "    }    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "0ae0908b-7850-4e26-a19a-a38c9661631b": {
+        "id": "0ae0908b-7850-4e26-a19a-a38c9661631b",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "  let jibo = require('jibo');\t",
+                "\tlet entity = jibo.lps.getClosestVisualEntity();",
+                "\t",
+                "\t// x is meters forward, y is meters left, and z is meters up",
+                "  let nDefaultPosition = {x: 0.1, y: 0, z: 0.285}; // emulates initial \"center\"",
+                "  let position = nDefaultPosition;",
+                "",
+                "\tif (entity && entity.parts.length > 0) {",
+                "\t\tlet raysData = entity.parts[0].value.rays;",
+                "\t\tif (raysData !== undefined && raysData.length > 0) {",
+                "\t\t\tlet origin = entity.parts[0].value.rays[0].origin;",
+                "\t\t\tlet dir = entity.parts[0].value.rays[0].dir;",
+                "\t\t\tposition\t= {x: dir.x + origin.x, y:dir.y + origin.y, z: dir.z + origin.z};",
+                "\t\t}",
+                "\t}",
+                "\treturn position;",
+                "}"
+            ],
+            "isContinuous": true,
+            "config": [
+                "(lookAt) => {",
                 "}"
             ]
         },
