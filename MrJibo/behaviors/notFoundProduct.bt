@@ -34,7 +34,7 @@
             "config": [
                 "(animation) => {",
                 "  let dofs = jibo.animate.dofs;",
-                "  animation.setDOFs(dofs.EYE);",
+                "  animation.setDOFs(dofs.EYES);",
                 "}"
             ]
         },
