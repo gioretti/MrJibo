@@ -6,81 +6,12 @@
         "options": {},
         "children": [
             "870bfa3b-7256-43f8-ad1d-39aa6f67eac4",
-            "e62954e0-7d87-4c2c-9ab4-0c4504bd06af",
             "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
             "ff63cd28-e2d9-4540-a063-41bcad68c56f"
         ]
     },
     "meta": {
         "version": 1
-    },
-    "b38e01e7-fb05-472a-b5ca-592d38a0d1f1": {
-        "id": "b38e01e7-fb05-472a-b5ca-592d38a0d1f1",
-        "class": "LookAt",
-        "name": "",
-        "options": {
-            "getTarget": [
-                "() => {",
-                "  ",
-                "  let currentTime = jibo.animate.getClock().currentTime();",
-                "  let timeElapsed = currentTime.subtract(notepad.startTime);",
-                "  console.log(\"current\" + currentTime);",
-                "  console.log(\"elapsed\" + timeElapsed);",
-                "  ",
-                "  let position = Math.floor(Math.random() * 100);",
-                "  if(position < 16 && position >= 0) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }  ",
-                "  else if(position < 22 && position > 16) {",
-                "    jibo.animate.setEyePosition(0.01,0.01);",
-                "  }",
-                "  else if(position < 22 && position > 16) {",
-                "    jibo.animate.setEyePosition(0.02,0.02);",
-                "  }",
-                "  else if(position < 40 && position > 22) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  else if(position < 48 && position > 40) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  else if(position < 65 && position > 48) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  else if(position < 73 && position > 65) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  else if(position < 93 && position > 73) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  else if(position <= 100 && position > 93) {",
-                "    jibo.animate.setEyePosition(0,0);",
-                "  }",
-                "  ",
-                "  ",
-                "  // if (timeElapsed % 6 < 3) {",
-                "    ",
-                "  jibo.animate.setEyePosition(100,100);",
-                "  //   return {x: 2, y: 2, z: 2};",
-                "  // }",
-                "  // else {",
-                "  //   return {x: 0, y: 0, z: 0};    ",
-                "  // }",
-                "}"
-            ],
-            "isContinuous": true,
-            "config": [
-                "(lookAt) => {",
-                "  ",
-                "  let dofs = jibo.animate.dofs;",
-                "  lookAt.setDOFs(dofs.EYE);",
-                "  ",
-                "  ",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
-        "skipped": true
     },
     "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f": {
         "id": "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
@@ -93,7 +24,6 @@
                 "    ",
                 "    if( !notepad.isInitialized ) {",
                 "        console.log(\"Initializing Jibo...\");",
-                "        notepad.startTime = jibo.animate.getClock().currentTime();",
                 "        notepad.talking = false;",
                 "        notepad.listing = false;",
                 "    }    ",
@@ -111,8 +41,7 @@
             "getTarget": [
                 "() => {",
                 "  let jibo = require('jibo');\t",
-                "\tlet entity = jibo.lps.getClosestVisualEntity();",
-                "\t",
+                "\tlet entity = jibo.lps.getClosestVisualEntity();    ",
                 "\t// x is meters forward, y is meters left, and z is meters up",
                 "  let nDefaultPosition = {x: 0.1, y: 0, z: 0.285}; // emulates initial \"center\"",
                 "  let position = nDefaultPosition;",
@@ -125,12 +54,35 @@
                 "\t\t\tposition\t= {x: dir.x + origin.x, y:dir.y + origin.y, z: dir.z + origin.z};",
                 "\t\t}",
                 "\t}",
+                "",
+                "  let current = jibo.animate.getClock().currentTime();",
+                "  let elapsed = current.subtract(notepad.startTime);  ",
+                "  if(elapsed > notepad.interval){    ",
+                "    let y = (0.5 - 1 * Math.random());",
+                "    let z = 0.35 + 0.25 * (0.5 - 1 * Math.random())",
+                "    console.log(\"elapsed\" + elapsed);",
+                "    notepad.modifierVector.y = y/50;",
+                "    notepad.modifierVector.z = z/50;",
+                "    notepad.startTime = jibo.animate.getClock().currentTime();",
+                "    notepad.interval = Math.floor(Math.random() * 4 + 1);",
+                "  }",
+                "  // console.log(notepad.interval)",
+                "  position.y = Number(position.y) + notepad.modifierVector.y;",
+                "  position.z = Number(position.z) + notepad.modifierVector.z;  ",
                 "\treturn position;",
                 "}"
             ],
             "isContinuous": true,
             "config": [
                 "(lookAt) => {",
+                "  console.log(\"builder\")",
+                "  notepad.startTime = jibo.animate.getClock().currentTime();",
+                "  notepad.interval = Math.floor(Math.random() * 6 + 1);",
+                "  notepad.modifierVector = {y : 0, z : 0 }",
+                "  // notepad.subInterval = Math.floor(Math.random() * notepad.interval + 1);",
+                "  ",
+                "  ",
+                "",
                 "}"
             ]
         },
@@ -149,53 +101,10 @@
         "parent": 1,
         "children": [
             "0ae0908b-7850-4e26-a19a-a38c9661631b",
-            "072b7c08-f221-445c-b046-95a4480826dd",
-            "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675",
-            "b38e01e7-fb05-472a-b5ca-592d38a0d1f1",
-            "7416f8c7-b48b-4742-a3ab-f5b0432fda8a"
+            "d7391d12-c27b-4852-835a-ae2b95889bc8",
+            "072b7c08-f221-445c-b046-95a4480826dd"
         ],
         "skipped": false
-    },
-    "7416f8c7-b48b-4742-a3ab-f5b0432fda8a": {
-        "id": "7416f8c7-b48b-4742-a3ab-f5b0432fda8a",
-        "class": "Subtree",
-        "name": "",
-        "options": {
-            "behaviorPath": "listen.bt",
-            "getNotepad": [
-                "() => {",
-                "  console.log(\"blink\");",
-                "    return {};",
-                "}"
-            ],
-            "onResult": [
-                "(treeResult) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
-        "decorators": [
-            "6a40c790-80f9-4361-807f-6863750d73cd"
-        ],
-        "skipped": false
-    },
-    "6a40c790-80f9-4361-807f-6863750d73cd": {
-        "id": "6a40c790-80f9-4361-807f-6863750d73cd",
-        "class": "WhileCondition",
-        "name": "",
-        "options": {
-            "init": [
-                "() => {",
-                "}"
-            ],
-            "conditional": [
-                "() => {",
-                "    return true;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
     },
     "28e5b830-ad75-4a34-9c90-182256371862": {
         "id": "28e5b830-ad75-4a34-9c90-182256371862",
@@ -215,8 +124,6 @@
                 "  ",
                 "  let x = (A/25) * xmax;",
                 "  let y = (A/25) * ymax;",
-                "  ",
-                "  console.log(\"x: \" + x + \", y\" + y);",
                 "  ",
                 "  if(position < 16 && position >= 0) {",
                 "      jibo.animate.setEyePosition(x,0);",
@@ -251,26 +158,6 @@
         "decorators": [],
         "skipped": false
     },
-    "e62954e0-7d87-4c2c-9ab4-0c4504bd06af": {
-        "id": "e62954e0-7d87-4c2c-9ab4-0c4504bd06af",
-        "class": "LookAt",
-        "name": "",
-        "options": {
-            "getTarget": [
-                "() => {",
-                "    return {x: 0, y: 0, z: 0};",
-                "}"
-            ],
-            "isContinuous": false,
-            "config": [
-                "(lookAt) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": 1,
-        "skipped": true
-    },
     "870bfa3b-7256-43f8-ad1d-39aa6f67eac4": {
         "id": "870bfa3b-7256-43f8-ad1d-39aa6f67eac4",
         "class": "Blink",
@@ -279,57 +166,10 @@
         "asset-pack": "core",
         "parent": 1
     },
-    "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675": {
-        "id": "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675",
-        "class": "ExecuteScript",
-        "name": "",
-        "options": {
-            "exec": [
-                "() => {  ",
-                "  // create a look-at builder",
-                "let builder = animate.createLookatBuilder();",
-                "",
-                "// configure the builder",
-                "builder.setContinuousMode(true);",
-                "",
-                "// trigger a look-at instance",
-                "let target = new animate.THREE.Vector3(1.0, 0.0, 1.0);",
-                "let instance = builder.startLookat(target);",
-                "",
-                "// later, update the target",
-                "let newTarget = new animate.THREE.Vector3(1.0, -1.0, 1.0);",
-                "instance.updateTarget(newTarget);",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
-        "decorators": [
-            "8fe11ef9-a31d-4213-9a70-2b764834f00d"
-        ],
-        "skipped": true
-    },
-    "8fe11ef9-a31d-4213-9a70-2b764834f00d": {
-        "id": "8fe11ef9-a31d-4213-9a70-2b764834f00d",
-        "class": "WhileCondition",
-        "name": "",
-        "options": {
-            "init": [
-                "() => {",
-                "}"
-            ],
-            "conditional": [
-                "() => {",
-                "    return true;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
-    },
     "69c2aaa7-de01-4567-86a2-5d3aba8d3c6c": {
         "id": "69c2aaa7-de01-4567-86a2-5d3aba8d3c6c",
         "class": "TimeoutJs",
-        "name": "Pause for a bit",
+        "name": "",
         "asset-pack": "core",
         "parent": "072b7c08-f221-445c-b046-95a4480826dd",
         "options": {
@@ -343,7 +183,7 @@
     "072b7c08-f221-445c-b046-95a4480826dd": {
         "id": "072b7c08-f221-445c-b046-95a4480826dd",
         "class": "Sequence",
-        "name": "",
+        "name": "saccades",
         "options": {},
         "asset-pack": "core",
         "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
@@ -371,5 +211,58 @@
             ]
         },
         "asset-pack": "core"
+    },
+    "d7391d12-c27b-4852-835a-ae2b95889bc8": {
+        "id": "d7391d12-c27b-4852-835a-ae2b95889bc8",
+        "class": "Sequence",
+        "name": "blink",
+        "asset-pack": "core",
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "children": [
+            "5d1feb2c-99a2-4c8b-94fd-c19584501dea",
+            "b9b10d97-173e-4de7-9114-d510b924119c"
+        ],
+        "decorators": [
+            "d8d94b9a-5d5e-437a-8f70-1e0920f335f7"
+        ],
+        "options": {}
+    },
+    "b9b10d97-173e-4de7-9114-d510b924119c": {
+        "id": "b9b10d97-173e-4de7-9114-d510b924119c",
+        "class": "Blink",
+        "asset-pack": "core",
+        "parent": "d7391d12-c27b-4852-835a-ae2b95889bc8",
+        "options": {}
+    },
+    "5d1feb2c-99a2-4c8b-94fd-c19584501dea": {
+        "id": "5d1feb2c-99a2-4c8b-94fd-c19584501dea",
+        "class": "TimeoutJs",
+        "name": "Pause for a bit",
+        "asset-pack": "core",
+        "parent": "d7391d12-c27b-4852-835a-ae2b95889bc8",
+        "options": {
+            "getTime": [
+                "() => {",
+                "   return 2000 + 2500 * Math.random();",
+                "}"
+            ]
+        }
+    },
+    "d8d94b9a-5d5e-437a-8f70-1e0920f335f7": {
+        "id": "d8d94b9a-5d5e-437a-8f70-1e0920f335f7",
+        "class": "WhileCondition",
+        "name": "",
+        "asset-pack": "core",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "  return true;",
+                "}"
+            ]
+        }
     }
 }
