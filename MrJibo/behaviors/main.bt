@@ -2,44 +2,16 @@
     "1": {
         "id": 1,
         "class": "Sequence",
-        "name": "Infinite loop",
+        "name": "",
+        "options": {},
         "asset-pack": "core",
         "children": [
-            "94c108e0-aada-455f-9486-b79a4e7d7a74",
-            "0534b8a9-1ec4-4edc-b455-79cee77cc543",
-            "47703041-64a3-432f-91a1-cf6614a44a29",
-            "13e49aee-bd12-474c-8002-36f211cd801b"
+            "ed29e206-15cf-47fe-9cfa-7171e09031a5"
         ],
-        "decorators": [
-            "7b83db44-861e-4649-9c43-60ade5a39447"
-        ],
-        "options": {}
+        "decorators": []
     },
     "meta": {
         "version": 1
-    },
-    "3d4808c6-1033-402f-82fe-828c2d957233": {
-        "id": "3d4808c6-1033-402f-82fe-828c2d957233",
-        "class": "Subtree",
-        "name": "idle",
-        "options": {
-            "behaviorPath": "idle.bt",
-            "getNotepad": [
-                "() => {",
-                "    return {};",
-                "}"
-            ],
-            "onResult": [
-                "(treeResult) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
-        "decorators": [
-            "acdedc87-6a25-4cea-8551-ae36c15e4200",
-            "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6"
-        ]
     },
     "5d7cbccc-b793-4054-bd62-3267120870ee": {
         "id": "5d7cbccc-b793-4054-bd62-3267120870ee",
@@ -49,7 +21,7 @@
             "getOptions": [
                 "() => {",
                 "    let options = {",
-                "        heyJibo: false,",
+                "        heyJibo: true,",
                 "        detectEnd: false,",
                 "        incremental: false,",
                 "        authenticateSpeaker: ''",
@@ -60,6 +32,10 @@
             "rule": "dialogue.rule",
             "onResult": [
                 "(listener) => {",
+                "  ",
+                "  listener.on('hey-jibo', function(asrResult, speakerIds) {",
+                "        notepad.isEngaged = true;",
+                "  });",
                 "  ",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
                 "        ",
@@ -74,7 +50,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": "47703041-64a3-432f-91a1-cf6614a44a29"
+        "parent": "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e"
     },
     "13e49aee-bd12-474c-8002-36f211cd801b": {
         "id": "13e49aee-bd12-474c-8002-36f211cd801b",
@@ -82,7 +58,7 @@
         "name": "",
         "options": {},
         "asset-pack": "core",
-        "parent": 1,
+        "parent": "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e",
         "children": [
             "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
             "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
@@ -164,7 +140,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1
+        "parent": "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e"
     },
     "4391c54e-d1f8-43d4-9a69-ea068ccf147d": {
         "id": "4391c54e-d1f8-43d4-9a69-ea068ccf147d",
@@ -180,58 +156,6 @@
         },
         "asset-pack": "core",
         "parent": "7a800a9c-0040-4cc7-8e1a-cbf6cac9d66a"
-    },
-    "7b83db44-861e-4649-9c43-60ade5a39447": {
-        "id": "7b83db44-861e-4649-9c43-60ade5a39447",
-        "class": "WhileCondition",
-        "name": "",
-        "options": {
-            "init": [
-                "() => {",
-                "}"
-            ],
-            "conditional": [
-                "() => {",
-                "    return true;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
-    },
-    "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0": {
-        "id": "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
-        "class": "LookAt",
-        "name": "",
-        "options": {
-            "getTarget": [
-                "() => {",
-                "\tlet jibo = require('jibo');\t",
-                "\tlet entity = jibo.lps.getClosestVisualEntity();",
-                "\t",
-                "\t// x is meters forward, y is meters left, and z is meters up",
-                "  let nDefaultPosition = {x: 0.1, y: 0, z: 0.285}; // emulates initial \"center\"",
-                "  let position = nDefaultPosition;",
-                "",
-                "\tif (entity && entity.parts.length > 0) {",
-                "\t\tlet raysData = entity.parts[0].value.rays;",
-                "\t\tif (raysData !== undefined && raysData.length > 0) {",
-                "\t\t\tlet origin = entity.parts[0].value.rays[0].origin;",
-                "\t\t\tlet dir = entity.parts[0].value.rays[0].dir;",
-                "\t\t\tposition\t= {x: dir.x + origin.x, y:dir.y + origin.y, z: dir.z + origin.z};",
-                "\t\t}",
-                "\t}",
-                "\treturn position;",
-                "}"
-            ],
-            "isContinuous": true,
-            "config": [
-                "(lookAt) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
-        "decorators": []
     },
     "f7dad3fc-ae51-499c-a339-467928d26c83": {
         "id": "f7dad3fc-ae51-499c-a339-467928d26c83",
@@ -267,101 +191,6 @@
         "asset-pack": "core",
         "parent": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
         "decorators": []
-    },
-    "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6": {
-        "id": "8eb2e6ef-d9f0-440b-8bb4-0dcfb831aea6",
-        "class": "SucceedOnEmbedded",
-        "name": "",
-        "options": {
-            "rule": "hey_jibo",
-            "onResult": [
-                "(listener) => {",
-                "\tlistener.on('hey-jibo', function(asrResult, speakerIds) {",
-                "        notepad.isEngaged = true;",
-                "\t});",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
-    },
-    "0534b8a9-1ec4-4edc-b455-79cee77cc543": {
-        "id": "0534b8a9-1ec4-4edc-b455-79cee77cc543",
-        "class": "Switch",
-        "name": "",
-        "options": {},
-        "asset-pack": "core",
-        "parent": 1,
-        "children": [
-            "3d4808c6-1033-402f-82fe-828c2d957233"
-        ]
-    },
-    "acdedc87-6a25-4cea-8551-ae36c15e4200": {
-        "id": "acdedc87-6a25-4cea-8551-ae36c15e4200",
-        "class": "Case",
-        "name": "",
-        "options": {
-            "conditional": [
-                "() => {",
-                "    return !notepad.isEngaged;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
-    },
-    "47703041-64a3-432f-91a1-cf6614a44a29": {
-        "id": "47703041-64a3-432f-91a1-cf6614a44a29",
-        "class": "Parallel",
-        "name": "",
-        "options": {
-            "succeedOnOne": true
-        },
-        "asset-pack": "core",
-        "parent": 1,
-        "children": [
-            "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
-            "a7e44cc1-df25-459d-b4d0-5c8ec562dcf0",
-            "5d7cbccc-b793-4054-bd62-3267120870ee"
-        ]
-    },
-    "cf2b8e83-a988-4caf-9c79-cdc336a76b6b": {
-        "id": "cf2b8e83-a988-4caf-9c79-cdc336a76b6b",
-        "class": "Subtree",
-        "name": "listen easy",
-        "options": {
-            "behaviorPath": "listen.bt",
-            "getNotepad": [
-                "() => {",
-                "    return {};",
-                "}"
-            ],
-            "onResult": [
-                "(treeResult) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "47703041-64a3-432f-91a1-cf6614a44a29",
-        "skipped": false,
-        "decorators": [
-            "98b091af-77ab-4af8-af7e-b9653861c759"
-        ]
-    },
-    "98b091af-77ab-4af8-af7e-b9653861c759": {
-        "id": "98b091af-77ab-4af8-af7e-b9653861c759",
-        "class": "WhileCondition",
-        "name": "",
-        "options": {
-            "init": [
-                "() => {",
-                "}"
-            ],
-            "conditional": [
-                "() => {",
-                "    return true;",
-                "}"
-            ]
-        },
-        "asset-pack": "core"
     },
     "bf0ebe7b-7562-4f9f-8d22-39cf50830a29": {
         "id": "bf0ebe7b-7562-4f9f-8d22-39cf50830a29",
@@ -495,5 +324,72 @@
             ]
         },
         "asset-pack": "core"
+    },
+    "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e": {
+        "id": "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
+        "children": [
+            "94c108e0-aada-455f-9486-b79a4e7d7a74",
+            "5d7cbccc-b793-4054-bd62-3267120870ee",
+            "13e49aee-bd12-474c-8002-36f211cd801b"
+        ],
+        "decorators": [
+            "1d026514-70d5-415a-bc54-851c7c9e62fb"
+        ]
+    },
+    "1d026514-70d5-415a-bc54-851c7c9e62fb": {
+        "id": "1d026514-70d5-415a-bc54-851c7c9e62fb",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "06e46c52-b8e5-422e-9be2-9e19ef732f19": {
+        "id": "06e46c52-b8e5-422e-9be2-9e19ef732f19",
+        "class": "Subtree",
+        "name": "",
+        "options": {
+            "behaviorPath": "socialAnimationLookAt.bt",
+            "getNotepad": [
+                "() => {",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
+        "decorators": []
+    },
+    "ed29e206-15cf-47fe-9cfa-7171e09031a5": {
+        "id": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "06e46c52-b8e5-422e-9be2-9e19ef732f19",
+            "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e"
+        ]
     }
 }

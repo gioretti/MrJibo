@@ -33,6 +33,8 @@
             "animPath": "sad.keys",
             "config": [
                 "(animation) => {",
+                "  let dofs = jibo.animate.dofs;",
+                "  animation.setDOFs(dofs.EYE);",
                 "}"
             ]
         },

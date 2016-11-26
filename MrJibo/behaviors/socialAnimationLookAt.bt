@@ -260,6 +260,7 @@
             ],
             "conditional": [
                 "() => {",
+                "  console.log(\"Blink social\")",
                 "  return true;",
                 "}"
             ]

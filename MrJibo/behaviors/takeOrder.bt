@@ -228,7 +228,7 @@
             ]
         },
         "asset-pack": "project",
-        "parent": "b840e893-f021-4c01-8922-705fc748198e"
+        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2"
     },
     "e711ce2f-2090-49c8-90e9-8f34d23f3a6f": {
         "id": "e711ce2f-2090-49c8-90e9-8f34d23f3a6f",
@@ -329,34 +329,6 @@
         },
         "asset-pack": "core"
     },
-    "b840e893-f021-4c01-8922-705fc748198e": {
-        "id": "b840e893-f021-4c01-8922-705fc748198e",
-        "class": "Parallel",
-        "name": "",
-        "options": {
-            "succeedOnOne": false
-        },
-        "asset-pack": "core",
-        "parent": "0f9ff152-28f3-4745-a7c5-0705a308b1d2",
-        "children": [
-            "ab4fba4e-338c-47c0-8250-24dee4684060",
-            "34bafbc4-ceec-405d-814a-7e22d53ac2b2"
-        ]
-    },
-    "ab4fba4e-338c-47c0-8250-24dee4684060": {
-        "id": "ab4fba4e-338c-47c0-8250-24dee4684060",
-        "class": "PlayAnimation",
-        "name": "think",
-        "options": {
-            "animPath": "thinking.keys",
-            "config": [
-                "(animation) => {",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "b840e893-f021-4c01-8922-705fc748198e"
-    },
     "3b7ce613-5a19-4d7b-97fe-b46d64b18b29": {
         "id": "3b7ce613-5a19-4d7b-97fe-b46d64b18b29",
         "class": "ExecuteScript",
@@ -442,7 +414,7 @@
         "asset-pack": "core",
         "parent": 1,
         "children": [
-            "b840e893-f021-4c01-8922-705fc748198e",
+            "34bafbc4-ceec-405d-814a-7e22d53ac2b2",
             "b45f74e5-dc07-4b09-897a-a619185d5b09"
         ],
         "decorators": [
