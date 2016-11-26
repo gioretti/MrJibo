@@ -5,9 +5,10 @@
         "name": "",
         "options": {},
         "children": [
+            "870bfa3b-7256-43f8-ad1d-39aa6f67eac4",
+            "e62954e0-7d87-4c2c-9ab4-0c4504bd06af",
             "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f",
-            "0ae0908b-7850-4e26-a19a-a38c9661631b",
-            "b38e01e7-fb05-472a-b5ca-592d38a0d1f1"
+            "ff63cd28-e2d9-4540-a063-41bcad68c56f"
         ]
     },
     "meta": {
@@ -26,13 +27,44 @@
                 "  console.log(\"current\" + currentTime);",
                 "  console.log(\"elapsed\" + timeElapsed);",
                 "  ",
+                "  let position = Math.floor(Math.random() * 100);",
+                "  if(position < 16 && position >= 0) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }  ",
+                "  else if(position < 22 && position > 16) {",
+                "    jibo.animate.setEyePosition(0.01,0.01);",
+                "  }",
+                "  else if(position < 22 && position > 16) {",
+                "    jibo.animate.setEyePosition(0.02,0.02);",
+                "  }",
+                "  else if(position < 40 && position > 22) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
+                "  else if(position < 48 && position > 40) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
+                "  else if(position < 65 && position > 48) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
+                "  else if(position < 73 && position > 65) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
+                "  else if(position < 93 && position > 73) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
+                "  else if(position <= 100 && position > 93) {",
+                "    jibo.animate.setEyePosition(0,0);",
+                "  }",
                 "  ",
-                "  if (timeElapsed % 6 < 3) {",
-                "    return {x: 2, y: 2, z: 2};",
-                "  }",
-                "  else {",
-                "    return {x: 0, y: 0, z: 0};    ",
-                "  }",
+                "  ",
+                "  // if (timeElapsed % 6 < 3) {",
+                "    ",
+                "  jibo.animate.setEyePosition(100,100);",
+                "  //   return {x: 2, y: 2, z: 2};",
+                "  // }",
+                "  // else {",
+                "  //   return {x: 0, y: 0, z: 0};    ",
+                "  // }",
                 "}"
             ],
             "isContinuous": true,
@@ -47,7 +79,7 @@
             ]
         },
         "asset-pack": "core",
-        "parent": 1,
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
         "skipped": true
     },
     "8e37938a-ed7f-4fec-a8d1-f7d8f9d36b6f": {
@@ -62,6 +94,8 @@
                 "    if( !notepad.isInitialized ) {",
                 "        console.log(\"Initializing Jibo...\");",
                 "        notepad.startTime = jibo.animate.getClock().currentTime();",
+                "        notepad.talking = false;",
+                "        notepad.listing = false;",
                 "    }    ",
                 "}"
             ]
@@ -101,6 +135,244 @@
             ]
         },
         "asset-pack": "core",
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "skipped": false
+    },
+    "ff63cd28-e2d9-4540-a063-41bcad68c56f": {
+        "id": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "class": "Parallel",
+        "name": "",
+        "options": {
+            "succeedOnOne": false
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "children": [
+            "0ae0908b-7850-4e26-a19a-a38c9661631b",
+            "072b7c08-f221-445c-b046-95a4480826dd",
+            "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675",
+            "b38e01e7-fb05-472a-b5ca-592d38a0d1f1",
+            "7416f8c7-b48b-4742-a3ab-f5b0432fda8a"
+        ],
+        "skipped": false
+    },
+    "7416f8c7-b48b-4742-a3ab-f5b0432fda8a": {
+        "id": "7416f8c7-b48b-4742-a3ab-f5b0432fda8a",
+        "class": "Subtree",
+        "name": "",
+        "options": {
+            "behaviorPath": "listen.bt",
+            "getNotepad": [
+                "() => {",
+                "  console.log(\"blink\");",
+                "    return {};",
+                "}"
+            ],
+            "onResult": [
+                "(treeResult) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "decorators": [
+            "6a40c790-80f9-4361-807f-6863750d73cd"
+        ],
+        "skipped": false
+    },
+    "6a40c790-80f9-4361-807f-6863750d73cd": {
+        "id": "6a40c790-80f9-4361-807f-6863750d73cd",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "28e5b830-ad75-4a34-9c90-182256371862": {
+        "id": "28e5b830-ad75-4a34-9c90-182256371862",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  console.log(\"ex\");",
+                "  let currentTime = jibo.animate.getClock().currentTime();",
+                "  let timeElapsed = currentTime.subtract(notepad.startTime);",
+                "  console.log(\"current\" + currentTime);",
+                "  console.log(\"elapsed\" + timeElapsed);",
+                "",
+                "  let position = Math.floor(Math.random() * 100);",
+                "  let random = (Math.random() * (15 - 0.001) + 0.001);",
+                "  console.log(random);",
+                "  let xmax = 0.003;",
+                "  let ymax = 0.003;",
+                "  ",
+                "  let A = -6.9 * Math.log(random/15.7);",
+                "  ",
+                "  let x = (A/25) * xmax;",
+                "  let y = (A/25) * ymax;",
+                "  ",
+                "  if(position < 16 && position >= 0) {",
+                "      jibo.animate.setEyePosition(x,0);",
+                "    }",
+                "    else if(position < 22 && position > 16) {",
+                "      jibo.animate.setEyePosition(x,y);",
+                "    }",
+                "    else if(position < 22 && position > 16) {",
+                "      jibo.animate.setEyePosition(0,y);",
+                "    }",
+                "    else if(position < 40 && position > 22) {",
+                "      jibo.animate.setEyePosition(-x,y);",
+                "    }",
+                "    else if(position < 48 && position > 40) {",
+                "      jibo.animate.setEyePosition(-x,0);",
+                "    }",
+                "    else if(position < 65 && position > 48) {",
+                "      jibo.animate.setEyePosition(-x,-y);",
+                "    }",
+                "    else if(position < 73 && position > 65) {",
+                "      jibo.animate.setEyePosition(0,-y);",
+                "    }",
+                "    else if(position < 93 && position > 73) {",
+                "      jibo.animate.setEyePosition(x,-y);",
+                "    }",
+                "    ",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "072b7c08-f221-445c-b046-95a4480826dd",
+        "decorators": [],
+        "skipped": false
+    },
+    "e62954e0-7d87-4c2c-9ab4-0c4504bd06af": {
+        "id": "e62954e0-7d87-4c2c-9ab4-0c4504bd06af",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "    return {x: 0, y: 0, z: 0};",
+                "}"
+            ],
+            "isContinuous": false,
+            "config": [
+                "(lookAt) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1,
+        "skipped": true
+    },
+    "870bfa3b-7256-43f8-ad1d-39aa6f67eac4": {
+        "id": "870bfa3b-7256-43f8-ad1d-39aa6f67eac4",
+        "class": "Blink",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
         "parent": 1
+    },
+    "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675": {
+        "id": "17a7cfcb-1ed9-4b38-9ab2-b8a2c6a23675",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {  ",
+                "  // create a look-at builder",
+                "let builder = animate.createLookatBuilder();",
+                "",
+                "// configure the builder",
+                "builder.setContinuousMode(true);",
+                "",
+                "// trigger a look-at instance",
+                "let target = new animate.THREE.Vector3(1.0, 0.0, 1.0);",
+                "let instance = builder.startLookat(target);",
+                "",
+                "// later, update the target",
+                "let newTarget = new animate.THREE.Vector3(1.0, -1.0, 1.0);",
+                "instance.updateTarget(newTarget);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "decorators": [
+            "8fe11ef9-a31d-4213-9a70-2b764834f00d"
+        ],
+        "skipped": true
+    },
+    "8fe11ef9-a31d-4213-9a70-2b764834f00d": {
+        "id": "8fe11ef9-a31d-4213-9a70-2b764834f00d",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "69c2aaa7-de01-4567-86a2-5d3aba8d3c6c": {
+        "id": "69c2aaa7-de01-4567-86a2-5d3aba8d3c6c",
+        "class": "TimeoutJs",
+        "name": "Pause for a bit",
+        "asset-pack": "core",
+        "parent": "072b7c08-f221-445c-b046-95a4480826dd",
+        "options": {
+            "getTime": [
+                "() => {  ",
+                "   return Math.floor((Math.random() * 220) + 180);",
+                "}"
+            ]
+        }
+    },
+    "072b7c08-f221-445c-b046-95a4480826dd": {
+        "id": "072b7c08-f221-445c-b046-95a4480826dd",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
+        "children": [
+            "28e5b830-ad75-4a34-9c90-182256371862",
+            "69c2aaa7-de01-4567-86a2-5d3aba8d3c6c"
+        ],
+        "decorators": [
+            "630f0983-11d4-4b41-8a16-9816c772dd9a"
+        ]
+    },
+    "630f0983-11d4-4b41-8a16-9816c772dd9a": {
+        "id": "630f0983-11d4-4b41-8a16-9816c772dd9a",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
     }
 }

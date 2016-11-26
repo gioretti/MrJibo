@@ -1,0 +1,49 @@
+{
+    "1": {
+        "id": 1,
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "children": [
+            "46080328-ff40-47d6-bdf2-963e5b369d14",
+            "7f09aca9-d456-4a1c-b6dd-53f92b8499b9"
+        ]
+    },
+    "meta": {
+        "version": 1
+    },
+    "7f09aca9-d456-4a1c-b6dd-53f92b8499b9": {
+        "id": "7f09aca9-d456-4a1c-b6dd-53f92b8499b9",
+        "class": "ExecuteScript",
+        "name": "",
+        "options": {
+            "exec": [
+                "() => {",
+                "  console.log(\"test\")",
+                "  jibo.animate.setEyePosition(0.3,0.3);",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    },
+    "46080328-ff40-47d6-bdf2-963e5b369d14": {
+        "id": "46080328-ff40-47d6-bdf2-963e5b369d14",
+        "class": "LookAt",
+        "name": "",
+        "options": {
+            "getTarget": [
+                "() => {",
+                "    return {x: 180, y: 180, z: 180};",
+                "}"
+            ],
+            "isContinuous": false,
+            "config": [
+                "(lookAt) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": 1
+    }
+}
