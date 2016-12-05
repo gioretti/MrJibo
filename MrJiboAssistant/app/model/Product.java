@@ -67,4 +67,29 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (_id != null ? !_id.equals(product._id) : product._id != null) return false;
+        if (name != null ? !name.equals(product.name) : product.name != null) return false;
+        if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
+        if (description != null ? !description.equals(product.description) : product.description != null) return false;
+        return price != null ? price.equals(product.price) : product.price == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = _id != null ? _id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        return result;
+    }
 }

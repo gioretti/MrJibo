@@ -1,44 +1,42 @@
-package services;
+package services.suggestion;
 
-
-import data.dao.ProductDao;
 import model.Product;
 import services.irsystem.RetrievalSystem;
 import services.irsystem.model.InformationElement;
 import services.irsystem.model.Result;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-@Singleton
-public class SuggestionService {
+public class ProductRetrieval {
 
-    private final ProductDao productDao;
-    private RetrievalSystem rsDescriptions;
-    private RetrievalSystem rsNames;
-    private HashMap<String, InformationElement> descriptionsMap = new HashMap<>();
-    private HashMap<String, InformationElement> namesMap = new HashMap<>();
+    private static final double RELEVANCE_FILTER_RATIO = 0.6;
+
+    private final RetrievalSystem rsNames;
+    private final HashMap<String, InformationElement> namesMap = new HashMap<>();
+
+    private final RetrievalSystem rsDescriptions;
+    private final HashMap<String, InformationElement> descriptionsMap = new HashMap<>();
+
+    private final HashMap<String, Product> indexedProducts = new HashMap<>();
+
     private InformationElement currentQuery;
 
+
     @Inject
-    public SuggestionService(ProductDao productDao, RetrievalSystem rsDescriptions, RetrievalSystem rsNames) {
-        this.productDao = productDao;
+    ProductRetrieval(RetrievalSystem rsDescriptions, RetrievalSystem rsNames) {
         this.rsDescriptions = rsDescriptions;
         this.rsNames = rsNames;
-
-        init();
     }
 
-    /**
-     * Prepare a Retrieval System for all the names and another for all the descriptions
-     */
-    private void init(){
+    public void importProducts(List<Product> products){
 
-        ArrayList<InformationElement> productDescriptions = new ArrayList<>();
-        ArrayList<InformationElement> productNames = new ArrayList<>();
+        List<InformationElement> productDescriptions = new ArrayList<>();
+        List<InformationElement> productNames = new ArrayList<>();
 
-        for(Product product : productDao.findAll()) {
+        for(Product product :  products){
             InformationElement description = new InformationElement(product.getId(), product.getDescription());
             productDescriptions.add(description);
             descriptionsMap.put(product.getId(), description);
@@ -46,20 +44,27 @@ public class SuggestionService {
             InformationElement name = new InformationElement(product.getId(), product.getName());
             productNames.add(name);
             namesMap.put(product.getId(), name);
+
+            indexedProducts.put(product.getId(), product);
         }
 
-        this.rsDescriptions.setStamming(false);
+        this.rsDescriptions.setStamming(true);
         this.rsDescriptions.setDocs(productDescriptions);
+
+        this.rsNames.setStamming(false);
         this.rsNames.setDocs(productNames);
     }
 
-    public void setQuery(String queryText){
-        this.currentQuery = new InformationElement("1", queryText);
+    public void processQuery(String queryText){
+        InformationElement query = new InformationElement("1", queryText);
+        this.currentQuery = query;
+        rsDescriptions.setQueries(query);
+        rsDescriptions.processQueries();
+        rsNames.setQueries(query);
+        rsNames.processQueries();
     }
 
     public List<Product> getBestSuggestion(){
-
-        processQuery();
 
         Result result = getQueryResult();
         if( result == null ) {
@@ -70,7 +75,7 @@ public class SuggestionService {
 
         List<Product> suggestedProducts = new ArrayList<>();
         for(InformationElement element : resultsRangList){
-            Product p = productDao.findById(element.getId());
+            Product p = indexedProducts.get(element.getId());
             suggestedProducts.add(p);
         }
         return suggestedProducts;
@@ -82,25 +87,19 @@ public class SuggestionService {
         HashMap<InformationElement, Double> resultMap =  result.get(this.currentQuery);
         Double bestValue = resultMap.get(rangList.get(0));
 
+        if(rangList.size() == 1){
+            return rangList;
+        }
+
         List<InformationElement> filteredRangList = new ArrayList<>();
         for(InformationElement elem : rangList){
             double ratio = resultMap.get(elem) / bestValue;
-            if ( ratio > 0.6 ) {
+            if ( ratio > RELEVANCE_FILTER_RATIO ) {
                 filteredRangList.add(elem);
             }
         }
 
         return filteredRangList;
-    }
-
-    private boolean hasNameResults(InformationElement query){
-        HashMap<InformationElement, Double> result = rsNames.getResult().get(query);
-        return (result != null) && result.size() > 0;
-    }
-
-    private boolean hasDescriptionResults(InformationElement query){
-        HashMap<InformationElement, Double> result = rsDescriptions.getResult().get(query);
-        return (result != null) && result.size() > 0;
     }
 
     private Result getQueryResult(){
@@ -116,11 +115,14 @@ public class SuggestionService {
         return result;
     }
 
-    private void processQuery(){
-        rsDescriptions.setQueries(this.currentQuery);
-        rsDescriptions.processQueries();
-        rsNames.setQueries(this.currentQuery);
-        rsNames.processQueries();
+    private boolean hasNameResults(InformationElement query){
+        HashMap<InformationElement, Double> result = rsNames.getResult().get(query);
+        return (result != null) && result.size() > 0;
+    }
+
+    private boolean hasDescriptionResults(InformationElement query){
+        HashMap<InformationElement, Double> result = rsDescriptions.getResult().get(query);
+        return (result != null) && result.size() > 0;
     }
 
     private HashMap<InformationElement, Double> mergeResults(InformationElement query){
@@ -150,4 +152,5 @@ public class SuggestionService {
 
         return newResultMap;
     }
+
 }

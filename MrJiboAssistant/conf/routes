@@ -7,6 +7,8 @@ GET     /                           controllers.HomeController.index
 #Products
 
 GET     /suggestion                 controllers.ProductController.suggestion(query)
+GET     /suggestion/:id             controllers.ProductController.getSuggestion(id: String)
+GET     /suggestion/:id/filter      controllers.ProductController.filterSuggestion(id: String, query)
 GET     /showSuggestion             controllers.ProductController.showSuggestion()
 GET     /suggestionWs               controllers.ProductController.suggestionWs()
 

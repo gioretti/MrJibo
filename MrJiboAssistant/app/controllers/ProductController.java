@@ -11,11 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
 import services.Publisher;
-import services.SuggestionService;
+import services.suggestion.SuggestionService;
 
 import javax.inject.Inject;
 import java.util.List;
-import views.html.*;
+import java.util.UUID;
 
 
 public class ProductController extends Controller {
@@ -32,8 +32,34 @@ public class ProductController extends Controller {
 
         Logger.info("/suggestion, received query: " + query);
 
-        suggestionService.setQuery(query);
-        List<Product> suggestions = suggestionService.getBestSuggestion();
+        UUID suggestionID = suggestionService.newSuggestion(query);
+        List<Product> suggestions = suggestionService.getSuggestion(suggestionID);
+
+        Logger.info("suggestion id is " + suggestionID);
+
+        if(suggestions != null && suggestions.size() > 0){
+            this.publisher.broadcast(Json.toJson(suggestions));
+            return ok(Json.toJson(suggestions));
+        } else {
+            return notFound();
+        }
+    }
+
+    public Result getSuggestion(String suggestionID){
+        UUID id = UUID.fromString(suggestionID);
+        List<Product> suggestions = suggestionService.getSuggestion(id);
+
+        if(suggestions != null && suggestions.size() > 0){
+            this.publisher.broadcast(Json.toJson(suggestions));
+            return ok(Json.toJson(suggestions));
+        } else {
+            return notFound();
+        }
+    }
+
+    public Result filterSuggestion(String suggestionID, String query){
+        UUID id = UUID.fromString(suggestionID);
+        List<Product> suggestions = suggestionService.filterSuggestion(id, query);
 
         if(suggestions != null && suggestions.size() > 0){
             this.publisher.broadcast(Json.toJson(suggestions));

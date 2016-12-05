@@ -8,6 +8,9 @@ import org.jongo.MongoCollection;
 import org.jongo.MongoCursor;
 import uk.co.panaxiom.playjongo.PlayJongo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductDao {
 
     private final PlayJongo jongo ;
@@ -21,8 +24,12 @@ public class ProductDao {
         return jongo.getCollection("products");
     }
 
-    public MongoCursor<Product> findAll() {
-        return products().find().as(Product.class);
+    public List<Product> findAll() {
+        List<Product> products = new ArrayList<>();
+        for(Product product : products().find().as(Product.class) ) {
+            products.add(product);
+        }
+        return products;
     }
 
     public void insert(Product product) {
