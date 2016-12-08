@@ -20,7 +20,11 @@ public class ProductRetrieval {
     private final RetrievalSystem rsDescriptions;
     private final HashMap<String, InformationElement> descriptionsMap = new HashMap<>();
 
+    // Structure: ProductID, Product
     private final HashMap<String, Product> indexedProducts = new HashMap<>();
+
+    // Structure: Brand, Product
+    private final HashMap<String, Product> brandProducts = new HashMap<>();
 
     private InformationElement currentQuery;
 
@@ -70,10 +74,22 @@ public class ProductRetrieval {
         if( result == null ) {
             return null;
         }
+        //FOR DEBUGGING
         System.out.println("----------------------------------------------");
-        System.out.println("END RESULT");
+        System.out.println("END RESULT: (without any filter)");
         System.out.println("----------------------------------------------");
         result.printResults(100);   // for debugging purpose
+        //END FOR DEBUGGING
+
+        //result = inflateBrandRelevantResults(result);
+
+        //FOR DEBUGGING
+        System.out.println("----------------------------------------------");
+        System.out.println("END RESULT: (after brand inflation)");
+        System.out.println("----------------------------------------------");
+        result.printResults(100);   // for debugging purpose
+        //END FOR DEBUGGING
+
         List<InformationElement> resultsRangList = relevanceFilter(result);
 
         List<Product> suggestedProducts = new ArrayList<>();
@@ -84,7 +100,28 @@ public class ProductRetrieval {
         return suggestedProducts;
     }
 
-    // filter results that are not enough relevant compared to the best result.
+    private Result inflateBrandRelevantResults(Result result) {
+
+        Result newResult = new Result();
+        HashMap<InformationElement, Double> relProducts = new HashMap<InformationElement, Double>();
+
+        for(InformationElement ie : result.get(currentQuery).keySet()) {
+            Product p = indexedProducts.get(ie.getId());
+            if(currentQuery.getText().toLowerCase().contains(p.getBrand().toLowerCase())){
+                relProducts.put(ie, result.get(currentQuery).get(ie) * 2);
+            } else {
+                relProducts.put(ie, result.get(currentQuery).get(ie));
+            }
+        }
+
+        newResult.put(currentQuery, relProducts);
+
+        return newResult;
+    }
+
+    /**
+     * filter results that are not enough relevant compared to the best result.
+     */
     private List<InformationElement> relevanceFilter(Result result){
         List<InformationElement> rangList = result.getBestResults(this.currentQuery, 100);
         HashMap<InformationElement, Double> resultMap =  result.get(this.currentQuery);
