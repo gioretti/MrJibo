@@ -49,6 +49,10 @@ public class SuggestionService {
         return bestSuggestion;
     }
 
+    public Product getProductById(String id){
+        return productDao.findById(id);
+    }
+
     public List<Product> getSuggestion(UUID suggestionID){
         return openSuggestions.get(suggestionID);
     }

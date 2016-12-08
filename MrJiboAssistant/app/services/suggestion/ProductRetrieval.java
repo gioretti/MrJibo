@@ -70,6 +70,9 @@ public class ProductRetrieval {
         if( result == null ) {
             return null;
         }
+        System.out.println("----------------------------------------------");
+        System.out.println("END RESULT");
+        System.out.println("----------------------------------------------");
         result.printResults(100);   // for debugging purpose
         List<InformationElement> resultsRangList = relevanceFilter(result);
 
@@ -130,12 +133,23 @@ public class ProductRetrieval {
         HashMap<InformationElement, Double> nameResult = rsNames.getResult().get(query);
         HashMap<InformationElement, Double> descriptionResult =  rsDescriptions.getResult().get(query);
 
+        //FOR DEBUGGING
+        System.out.println("----------------------------------------------");
+        System.out.println("NAME RESULT");
+        System.out.println("----------------------------------------------");
+        rsNames.getResult().printResults(100);
+        System.out.println("----------------------------------------------");
+        System.out.println("DESCRIPTION RESULT");
+        System.out.println("----------------------------------------------");
+        rsDescriptions.getResult().printResults(100);
+        //END FOR DEBUGGING
+
         // add merged name + description results or just name result if there is not correspoding description.
         HashMap<InformationElement, Double> newResultMap = new HashMap<>();
         for(InformationElement name : nameResult.keySet()){
             InformationElement description = descriptionsMap.get(name.getId());
             if(descriptionResult.containsKey(description)){
-                Double newScore = nameResult.get(name) * 2 + descriptionResult.get(description);
+                Double newScore = nameResult.get(name) + descriptionResult.get(description);
                 newResultMap.put(name, newScore);
             } else  {
                 newResultMap.put(name, nameResult.get(name));

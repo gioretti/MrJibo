@@ -69,6 +69,16 @@ public class ProductController extends Controller {
         }
     }
 
+    public Result getProduct(String productID){
+        Product p = suggestionService.getProductById(productID);
+
+        if(p != null){
+            return ok(Json.toJson(p));
+        } else {
+            return notFound();
+        }
+    }
+
     public WebSocket suggestionWs() {
         return WebSocket.Json.accept(requestHeader -> {
             Sink<JsonNode, ?> sink = Sink.ignore();

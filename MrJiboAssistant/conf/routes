@@ -12,5 +12,7 @@ GET     /suggestion/:id/filter      controllers.ProductController.filterSuggesti
 GET     /showSuggestion             controllers.ProductController.showSuggestion()
 GET     /suggestionWs               controllers.ProductController.suggestionWs()
 
+GET     /product/:id                controllers.ProductController.getProduct(id : String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

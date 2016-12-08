@@ -5,10 +5,11 @@ $('document').ready(function(){
      var receiveEvent = function(event) {
         let suggestions = JSON.parse(event.data);
         console.log(suggestions);
+        $("#info").html("Total products found: " + suggestions.length);
         $("#products").html("");
         suggestions.forEach(function(product){
             $("#products").append(
-                "<p>" +
+                "<p>" + product.id + " " +
                     "<span class='bold'>" +
                         product.name +
                         " (" + product.price + " CHF)" +
