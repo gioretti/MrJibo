@@ -391,7 +391,7 @@
     "3f4c77ed-e6ae-4c7c-8bce-7916ab03fde5": {
         "id": "3f4c77ed-e6ae-4c7c-8bce-7916ab03fde5",
         "class": "TextToSpeech",
-        "name": "helloooo",
+        "name": "say hello",
         "options": {
             "words": "Hello, what can I do for you?",
             "onWord": [
@@ -422,7 +422,7 @@
     "0a04ec13-c067-4c59-a09f-96c42c242bd8": {
         "id": "0a04ec13-c067-4c59-a09f-96c42c242bd8",
         "class": "Sequence",
-        "name": "",
+        "name": "sey hello while",
         "options": {},
         "asset-pack": "core",
         "parent": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
