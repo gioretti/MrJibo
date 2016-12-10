@@ -35,7 +35,7 @@
                 "(listener) => {",
                 "  ",
                 "  listener.on('hey-jibo', function(asrResult, speakerIds) {",
-                "        notepad.isEngaged = true;",
+                "        jibo.isEngaged = true;",
                 "        emitter.emit('engageJibo');",
                 "  });",
                 "  ",
@@ -127,10 +127,13 @@
                 "      console.log(\"Initializing Jibo...\");",
                 "      notepad.action = \"\";",
                 "      notepad.results = {};",
-                "      notepad.isEngaged = false;",
+                "      jibo.isEngaged = false;",
                 "      notepad.shoppingCart = [];",
                 "      notepad.isInitialized = true;",
                 "  }",
+                "  ",
+                "  // just for legacy, to be sure it still works",
+                "  notepad.isEngaged = jibo.isEngaged;",
                 "  ",
                 "}"
             ]
@@ -145,7 +148,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "  notepad.isEngaged = false;",
+                "  jibo.isEngaged = false;",
                 "  notepad.shoppingCart = [];",
                 "}"
             ]
