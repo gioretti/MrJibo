@@ -6,6 +6,7 @@
         "options": {},
         "asset-pack": "core",
         "children": [
+            "94c108e0-aada-455f-9486-b79a4e7d7a74",
             "ed29e206-15cf-47fe-9cfa-7171e09031a5"
         ],
         "decorators": []
@@ -35,6 +36,7 @@
                 "  ",
                 "  listener.on('hey-jibo', function(asrResult, speakerIds) {",
                 "        notepad.isEngaged = true;",
+                "        emitter.emit('engageJibo');",
                 "  });",
                 "  ",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
@@ -44,7 +46,6 @@
                 "        notepad.results = asrResult.NLParse;",
                 "        console.log(\"What I've understood: \" ",
                 "                    + notepad.action);",
-                "        if(notepad.isBusy){ emitter.emit('engageJibo'); }",
                 "    });",
                 "}"
             ]
@@ -121,9 +122,7 @@
         "options": {
             "exec": [
                 "() => {",
-                "  ",
-                "  console.log(\"new loop... \");",
-                "  ",
+                "    ",
                 "  if( !notepad.isInitialized ) {",
                 "      console.log(\"Initializing Jibo...\");",
                 "      notepad.action = \"\";",
@@ -133,14 +132,11 @@
                 "      notepad.isInitialized = true;",
                 "  }",
                 "  ",
-                "  console.log(\"Items in shopping cart:\");",
-                "  console.log(notepad.shoppingCart);",
-                "  ",
                 "}"
             ]
         },
         "asset-pack": "core",
-        "parent": "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e"
+        "parent": 1
     },
     "4391c54e-d1f8-43d4-9a69-ea068ccf147d": {
         "id": "4391c54e-d1f8-43d4-9a69-ea068ccf147d",
@@ -333,7 +329,6 @@
         "asset-pack": "core",
         "parent": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
         "children": [
-            "94c108e0-aada-455f-9486-b79a4e7d7a74",
             "5d7cbccc-b793-4054-bd62-3267120870ee",
             "13e49aee-bd12-474c-8002-36f211cd801b"
         ],
@@ -389,7 +384,70 @@
         "parent": 1,
         "children": [
             "06e46c52-b8e5-422e-9be2-9e19ef732f19",
+            "0a04ec13-c067-4c59-a09f-96c42c242bd8",
             "8c6a2a1c-eff0-48a3-ad21-43126eb4fc0e"
         ]
+    },
+    "3f4c77ed-e6ae-4c7c-8bce-7916ab03fde5": {
+        "id": "3f4c77ed-e6ae-4c7c-8bce-7916ab03fde5",
+        "class": "TextToSpeech",
+        "name": "helloooo",
+        "options": {
+            "words": "Hello, what can I do for you?",
+            "onWord": [
+                "(word) => {",
+                "}"
+            ]
+        },
+        "asset-pack": "core",
+        "parent": "0a04ec13-c067-4c59-a09f-96c42c242bd8",
+        "decorators": [
+            "ee4bee4d-9c62-4d08-bc1b-5a00d8e0005e"
+        ]
+    },
+    "ee4bee4d-9c62-4d08-bc1b-5a00d8e0005e": {
+        "id": "ee4bee4d-9c62-4d08-bc1b-5a00d8e0005e",
+        "class": "StartOnEvent",
+        "name": "",
+        "options": {
+            "eventName": "engageJibo",
+            "onEvent": [
+                "() => {",
+                "    console.log(\"Hello has event\")",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
+    },
+    "0a04ec13-c067-4c59-a09f-96c42c242bd8": {
+        "id": "0a04ec13-c067-4c59-a09f-96c42c242bd8",
+        "class": "Sequence",
+        "name": "",
+        "options": {},
+        "asset-pack": "core",
+        "parent": "ed29e206-15cf-47fe-9cfa-7171e09031a5",
+        "children": [
+            "3f4c77ed-e6ae-4c7c-8bce-7916ab03fde5"
+        ],
+        "decorators": [
+            "5048275d-8e72-4262-8513-42e2cf24bea4"
+        ]
+    },
+    "5048275d-8e72-4262-8513-42e2cf24bea4": {
+        "id": "5048275d-8e72-4262-8513-42e2cf24bea4",
+        "class": "WhileCondition",
+        "name": "",
+        "options": {
+            "init": [
+                "() => {",
+                "}"
+            ],
+            "conditional": [
+                "() => {",
+                "    return true;",
+                "}"
+            ]
+        },
+        "asset-pack": "core"
     }
 }
