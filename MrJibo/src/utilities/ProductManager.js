@@ -18,7 +18,7 @@ class ProductManager {
                 .then( response => {
                     console.log("ProductManager: - received a response: ");
                     console.log(response);
-                    callback(response.data);
+                    callback(response.data.suggestions);
                 })
                 .catch( error => {
                     console.log(error);

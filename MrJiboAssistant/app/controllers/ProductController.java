@@ -5,6 +5,7 @@ import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import com.fasterxml.jackson.databind.JsonNode;
 import model.Product;
+import model.SuggestionDTO;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -35,11 +36,13 @@ public class ProductController extends Controller {
         UUID suggestionID = suggestionService.newSuggestion(query);
         List<Product> suggestions = suggestionService.getSuggestion(suggestionID);
 
+        SuggestionDTO dto = new SuggestionDTO(suggestionID, suggestions);
+
         Logger.info("suggestion id is " + suggestionID);
 
         if(suggestions != null && suggestions.size() > 0){
             this.publisher.broadcast(Json.toJson(suggestions));
-            return ok(Json.toJson(suggestions));
+            return ok(Json.toJson(dto));
         } else {
             return notFound();
         }
@@ -49,9 +52,11 @@ public class ProductController extends Controller {
         UUID id = UUID.fromString(suggestionID);
         List<Product> suggestions = suggestionService.getSuggestion(id);
 
+        SuggestionDTO dto = new SuggestionDTO(UUID.fromString(suggestionID), suggestions);
+
         if(suggestions != null && suggestions.size() > 0){
             this.publisher.broadcast(Json.toJson(suggestions));
-            return ok(Json.toJson(suggestions));
+            return ok(Json.toJson(dto));
         } else {
             return notFound();
         }
@@ -61,9 +66,12 @@ public class ProductController extends Controller {
         UUID id = UUID.fromString(suggestionID);
         List<Product> suggestions = suggestionService.filterSuggestion(id, query);
 
+        SuggestionDTO dto = new SuggestionDTO(id, suggestions);
+
         if(suggestions != null && suggestions.size() > 0){
             this.publisher.broadcast(Json.toJson(suggestions));
             return ok(Json.toJson(suggestions));
+
         } else {
             return notFound();
         }
