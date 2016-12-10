@@ -1,1 +1,14 @@
-TopRule @= +$w {keywords = _parsed};
+TopRule =
+    (
+        $keywords
+            {action = 'order'}
+            {keywords = keywords._value}
+        |
+        $cancel
+            {action = 'cancel'}
+    )
+;
+
+cancel = cancel | nothing | (forget it) | (never mind);
+
+keywords @= +$w {_value = _parsed};
