@@ -9,6 +9,8 @@ Like it has already been said, it is only a proof of concept. It still has too m
 
 ##Structure
 
+![Architecture](Architecture.png)
+
 ###MrJibo
 The behaviour of Jibo
 
