@@ -1,4 +1,4 @@
-name := """MrJiboAssistant"""
+name := """ProductRetrievalSystem"""
 
 version := "1.0-SNAPSHOT"
 
