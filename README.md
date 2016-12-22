@@ -5,6 +5,9 @@ The project is a proof of concept based on [Jibo](https://developers.jibo.com/) 
 
 It is only a proof of concept. It still has too many limits and problems to be used on a real case.
 
+##Demo
+[![Demo Video](https://img.youtube.com/vi/2TiQD2uD7NQ/0.jpg)](https://www.youtube.com/watch?v=2TiQD2uD7NQ)
+
 ##Structure
 
 ![Architecture](Architecture.png)
