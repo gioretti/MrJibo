@@ -61,7 +61,6 @@
                 "    let y = (0.5 - 1 * Math.random());",
                 "    let z = 0.35 + 0.25 * (0.5 - 1 * Math.random())",
                 "    ",
-                "    console.log(jibo.isEngaged)",
                 "    if(jibo.isEngaged) {",
                 "        y = y * 0.3;",
                 "        z = z * 0.3;",
@@ -109,7 +108,6 @@
         "asset-pack": "core",
         "parent": 1,
         "children": [
-            "953e2a5a-4895-489c-9a85-d3047e01ccec",
             "0ae0908b-7850-4e26-a19a-a38c9661631b",
             "d7391d12-c27b-4852-835a-ae2b95889bc8",
             "072b7c08-f221-445c-b046-95a4480826dd"
@@ -270,26 +268,9 @@
             ],
             "conditional": [
                 "() => {",
-                "  console.log(\"Blink social\")",
                 "  return true;",
                 "}"
             ]
         }
-    },
-    "953e2a5a-4895-489c-9a85-d3047e01ccec": {
-        "id": "953e2a5a-4895-489c-9a85-d3047e01ccec",
-        "class": "ExecuteScript",
-        "name": "",
-        "options": {
-            "exec": [
-                "() => {",
-                "    console.log(\"ENGAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\");",
-                "    console.log(jibo.isEngaged);",
-                "}"
-            ]
-        },
-        "asset-pack": "core",
-        "parent": "ff63cd28-e2d9-4540-a063-41bcad68c56f",
-        "decorators": []
     }
 }

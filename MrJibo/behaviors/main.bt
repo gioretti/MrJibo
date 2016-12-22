@@ -22,7 +22,7 @@
             "getOptions": [
                 "() => {",
                 "    let options = {",
-                "        heyJibo: true,",
+                "        heyJibo: !jibo.isEngaged,",
                 "        detectEnd: false,",
                 "        incremental: false,",
                 "        authenticateSpeaker: ''",
@@ -267,6 +267,7 @@
                 "(listener) => {",
                 "    listener.on('cloud', function(asrResult, speakerIds) {",
                 "        notepad.someThingElse = asrResult.NLParse.confirmed;",
+                "        console.log(\"Something else? \" + notepad.someThingElse);",
                 "    });",
                 "}"
             ]
@@ -346,10 +347,12 @@
         "options": {
             "init": [
                 "() => {",
+                "    console.log(\"Init the main infinite loop\");",
                 "}"
             ],
             "conditional": [
                 "() => {",
+                "    console.log(\"infinite While condition in main: NEW LOOP\");",
                 "    return true;",
                 "}"
             ]

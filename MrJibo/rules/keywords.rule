@@ -6,9 +6,20 @@ TopRule =
         |
         $cancel
             {action = 'cancel'}
+        |
+        $choice
+            {action = 'choice'}
+            {choice = choice._value}
     )
 ;
 
 cancel = cancel | nothing | (forget it) | (never mind);
 
 keywords @= +$w {_value = _parsed};
+
+choice = (first one) { _value = '0' }
+             |
+         (second one) { _value = '1' }
+             |
+         (third) { _value = '2' }
+;
